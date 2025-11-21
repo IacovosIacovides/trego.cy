@@ -2,506 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>trego.cy | BBQ food</title>
-  <meta name="description" content="Eve's second temptation, where even angels crave seconds. Join Trego.cy for wood-fired BBQ meats, veggies, and soulful cooking in Cyprus.">
-  <meta name="keywords" content="BBQ Cyprus, BBQ chef, grilled meats Cyprus, fire cooking, trego.cy, outdoor cooking, food passion, event cooking, live cooking">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="trego.cy | Eve'ss Second Temptation">
-<meta property="og:description" content="BBQ meats, fire-grilled veggies, and a taste that even angels crave.">
-<meta property="og:image" content="https://trego.cy/assets/hero-preview.jpg">
-<meta property="og:url" content="https://trego.cy/">
-<meta name="twitter:card" content="summary_large_image">
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --earth-light: #f8f5f2;
-      --earth-medium: #d1a77a;
-      --earth-dark: #3e3b36;
-    }
-
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: var(--earth-light);
-      color: var(--earth-dark);
-      margin: 0;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 100vh;
-      background-color: #000;
-      color: #fff;
-    }
-
-    .hero-image {
-      flex: 1;
-      background: url('/assets/EA03AB2D-3830-4361-8F91-3F935FD1C835_1_105_c.jpeg') center/contain no-repeat;
-      background-color: #000;
-      min-height: 50vh;
-    }
-
-    .hero-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem;
-      background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
-    }
-
-    .hero-text h1 {
-      font-size: 3.2rem;
-      color: #f9f6f2;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    }
-
-    .hero-text .slogan {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: #f1e2c5;
-      font-size: 1.2rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-text p {
-      font-size: 1.1rem;
-      color: #f5f5f5;
-      margin-bottom: 2rem;
-    }
-
-    .btn-custom {
-      background-color: var(--earth-medium);
-      color: #fff;
-      border-radius: 50px;
-      padding: 0.75rem 2rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      align-self: start;
-    }
-
-    .btn-custom:hover {
-      background-color: #c38e5a;
-      transform: translateY(-3px);
-    }
-
-    .btn-custom::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
-      transition: all 0.5s ease;
-    }
-
-    .btn-custom:hover::after {
-      left: 100%;
-    }
-
-    /* ===== MOBILE HERO FIX ===== */
-    @media (max-width: 992px) {
-      .hero {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: #000;
-        padding: 3rem 1.5rem;
-      }
-
-      .hero-image {
-        order: 1;
-        width: 100%;
-        height: auto;
-        background: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 2rem;
-      }
-
-      .hero-image::before {
-        content: "";
-        display: block;
-        background: url('/assets/EA03AB2D-3830-4361-8F91-3F935FD1C835_1_105_c.jpeg') center/contain no-repeat;
-        width: 70%;
-        max-width: 300px;
-        aspect-ratio: 1/1;
-      }
-
-      .hero-text {
-        order: 2;
-        background: none;
-        padding: 0;
-        max-width: 90%;
-      }
-
-      .hero-text h1 {
-        font-size: 2.6rem;
-        margin-bottom: 1rem;
-      }
-
-      .hero-text .slogan {
-        font-size: 1rem;
-        color: #e8d4b0;
-        margin-bottom: 1.2rem;
-      }
-
-      .hero-text p {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .btn-custom {
-        align-self: center;
-      }
-    }
-
-    /* ===== ABOUT ===== */
-    .about {
-      position: relative;
-      background-color: #0f0f0f;
-      color: #f8f5f2;
-      padding: 160px 0;
-      overflow: hidden;
-    }
-
-    .about h2 {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      color: #f9f6f2;
-      position: relative;
-      z-index: 2;
-    }
-
-    .about-text {
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      color: #d9d7d3;
-      font-size: 1.15rem;
-      z-index: 2;
-      position: relative;
-    }
-
-    .about-gallery {
-      position: relative;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      z-index: 1;
-      min-height: 700px;
-    }
-
-    .photo {
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      border-radius: 18px;
-      overflow: hidden;
-      transform: rotate(var(--rot, 0deg)) scale(1);
-      transition: all 0.5s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-    }
-
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .photo:hover {
-      transform: scale(1.08) rotate(var(--rot, 0deg));
-      z-index: 10;
-    }
-
-    .photo:hover img {
-      transform: scale(1.1);
-    }
-
-    .about .btn-custom {
-      background-color: #d1a77a;
-      color: #fff;
-      border-radius: 50px;
-      padding: 0.75rem 2rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 3;
-    }
-
-    .about .btn-custom:hover {
-      background-color: #c38e5a;
-      transform: translateY(-3px);
-    }
-
-    @media (max-width: 768px) {
-      .about {
-        padding: 100px 0;
-      }
-
-      .about-gallery {
-        height: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 15px;
-        justify-items: center;
-      }
-
-      .photo {
-        position: static;
-        opacity: 1;
-        transform: none;
-        width: 100%;
-        max-width: 200px;
-        height: 200px;
-      }
-
-      .photo img {
-        border-radius: 12px;
-      }
-    }
-
-    /* ===== CONTACT ===== */
-    .contact {
-      background-color: #111;
-      color: #f8f5f2;
-      padding: 120px 0;
-      text-align: center;
-      position: relative;
-    }
-
-    .contact h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #f9f6f2;
-    }
-
-    .contact-text {
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      color: #d9d7d3;
-      font-size: 1.1rem;
-    }
-
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      margin-top: 30px;
-    }
-
-    .icon-btn {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      color: #fff;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      position: relative;
-      box-shadow: 0 0 0 rgba(209,167,122,0.3);
-    }
-
-    .icon-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(209,167,122,0.4);
-    }
-
-    .message-btn {
-      background-color: #d1a77a;
-    }
-
-    .message-btn:hover {
-      background-color: #c38e5a;
-    }
-
-    .insta-btn {
-      background: radial-gradient(circle at top left, #f56040, #833ab4);
-    }
-
-    .insta-btn:hover {
-      background: radial-gradient(circle at top left, #833ab4, #f56040);
-    }
-
-    @media (max-width: 768px) {
-      .icon-btn {
-        width: 70px;
-        height: 70px;
-        font-size: 1.8rem;
-      }
-    }
-
-    /* ===== FOOTER ===== */
-    .site-footer {
-      background: linear-gradient(to bottom, #1a1a1a 0%, #0b0b0b 100%);
-      color: #f8f5f2;
-      padding: 80px 20px 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .site-footer::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top center, rgba(209,167,122,0.1), transparent 80%);
-      z-index: 0;
-    }
-
-    .footer-bottom {
-      font-size: 0.95rem;
-      color: #c9c5bd;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 25px;
-      margin-top: 40px;
-      position: relative;
-      z-index: 2;
-      animation: emberGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes emberGlow {
-      0%, 100% { text-shadow: 0 0 5px rgba(209,167,122,0.2); }
-      50% { text-shadow: 0 0 15px rgba(209,167,122,0.4); }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="/assets/logo.png">
+  <title>trego.cy | Eve's second tempation</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <div class="topbar"></div>
+  <a href="https://instagram.com/trego.cy" target="_blank" class="ig-link">
+    <svg viewBox="0 0 24 24">
+      <path fill="white" d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3.25A4.75 4.75 0 1 0 16.75 12 4.75 4.75 0 0 0 12 7.25zm0 2A2.75 2.75 0 1 1 9.25 12 2.75 2.75 0 0 1 12 9.25zm4.5-3.88a1.12 1.12 0 1 0 1.12 1.12 1.12 1.12 0 0 0-1.12-1.12z"/>
+    </svg>
+  </a>
+  <div class="top-tagline">
+    Eve's second temptation, where even angels crave seconds
+  </div>
+  <div class="logo-fixed-right" id="logoSlot"></div>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-image"></div>
-    <div class="hero-text">
-      <h1>trego</h1>
-      <p class="slogan">"Eve's second temptation, where even angels crave seconds"</p>
-      <p>Cooking with passion, flavor, and heart.</p>
-    </div>
-  </section>
+  <section class="stage">
+    <div class="cook-scene" id="scene">
+      <div class="particles-back" id="particlesBack"></div>
+      <div class="particles-front" id="particlesFront"></div>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="container text-center">
-      <h2>About trego</h2>
-      <p class="about-text">
-        Eve couldn't resist, and honestly... neither will you.  
-        When the fire's lit and the grill's whispering secrets, come join me for a taste.  
-        Text me for a bite of temptation or find me where the smoke meets the stories.
-      </p>
-  
-      <div class="about-gallery">
-        <div class="photo"><img src="assets/01271d8f8f06621b6fbcb76658ff1488.jpeg" alt="Dish 1"></div>
-        <div class="photo"><img src="assets/0dc5cd84-b2a4-4a0e-9a76-b4194b97ab8e.jpg" alt="Dish 2"></div>
-        <div class="photo"><img src="assets/c7169379-90c6-41b4-bb52-8b80c70e53a4.jpg" alt="Dish 3"></div>
-        <div class="photo"><img src="assets/IMG_9617.jpeg" alt="Dish 4"></div>
+      <div class="steak-wrap" id="steakWrap">
+        <svg class="steak-svg" viewBox="0 0 400 260">
+          <defs>
+            <radialGradient id="meatGrad" cx="30%" cy="30%">
+              <stop offset="0%" stop-color="#ffb6b6"/>
+              <stop offset="55%" stop-color="#b73030"/>
+              <stop offset="100%" stop-color="#5b0f0f"/>
+            </radialGradient>
+            <radialGradient id="fatGrad" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#ffe3e3"/>
+              <stop offset="100%" stop-color="#ffbcbc"/>
+            </radialGradient>
+          </defs>
+
+          <path d="M65,70 C40,120 60,200 140,220 C210,238 290,230 335,185 C380,140 360,70 305,52 C255,32 200,20 150,35 C110,47 80,52 65,70Z"
+                fill="url(#meatGrad)" stroke="#3a0909" stroke-width="8" />
+          <path d="M108,58 C92,90 110,125 170,140 C230,154 275,150 313,125 C340,105 330,62 292,50 C250,36 150,30 108,58Z"
+                fill="url(#fatGrad)" opacity=".55"/>
+          <path d="M120,110 C150,95 180,120 210,108 C238,97 260,115 292,102"
+                fill="none" stroke="#ffd0d0" stroke-width="7" opacity=".45" stroke-linecap="round"/>
+          <path d="M105,145 C140,132 170,155 200,145 C232,135 255,156 295,140"
+                fill="none" stroke="#ffd0d0" stroke-width="7" opacity=".35" stroke-linecap="round"/>
+          <ellipse cx="145" cy="175" rx="38" ry="20" fill="#701515" opacity=".5"/>
+          <ellipse cx="250" cy="170" rx="45" ry="22" fill="#6a1414" opacity=".45"/>
+        </svg>
+        <div class="stuck-layer" id="stuckLayer"></div>
       </div>
-  
-      <a href="https://instagram.com/trego.cy" target="_blank" class="btn btn-custom mt-5">Follow on Instagram</a>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="container text-center">
-      <h2>Tempted Yet?</h2>
-      <p class="contact-text mb-5">
-        Eve couldn't resist, and honestly... neither will you.  
-        When the fire's lit and the grill's whispering secrets, something is cooking.
-        Text me for a bite of temptation or find me where the smoke meets the stories.
-      </p>
-  
-      <div class="contact-buttons">
-        <a href="https://instagram.com/trego.cy" target="_blank" class="icon-btn insta-btn" title="Visit Instagram">
-          <i class="bi bi-instagram"></i>
-        </a>
+      <div class="grill" id="grill"><div class="grates"></div></div>
+
+      <div class="fire" id="fire">
+        <div class="flame"></div><div class="flame"></div><div class="flame"></div>
+        <div class="flame"></div><div class="flame"></div><div class="flame"></div>
       </div>
-      <p class="mt-4" style="color:#c38e5a; font-style:italic;">
-        *Warning: contact may lead to cravings and mild grill envy.*
-      </p>
+      <div class="glow" id="glow"></div>
+    </div>
+
+    <!-- SERVICE STORY COPY -->
+    <div class="text-wrap">
+      <div class="text-card">
+        <div class="eyebrow">trego</div>
+        <h1>Host the party. I'll bring the fire.</h1>
+        <p>Live-fire cooking at your place so you can <span style="font-weight: bold; color: brown;"> actually </span> enjoy your night.</p>
+      </div>
+
+      <div class="text-card">
+        <div class="eyebrow-caps">Step 1</div>
+        <h1>I arrive ready to go.</h1>
+        <p>I bring my BBQ and fire pit, set up fast, and get everything <span style="font-weight: bold; color: brown;">glowing</span>.</p>
+      </div>
+
+      <div class="text-card">
+        <div class="eyebrow-caps">Step 2</div>
+        <h1>Cooking happens live.</h1>
+        <p><span style="font-weight: bold; color: brown;"> Meat, veggies, sides, and smokeright </span> in front of you and your guests.</p>
+      </div>
+
+      <div class="text-card">
+        <div class="eyebrow-caps">Step 3</div>
+        <h1>You stay in the moment.</h1>
+        <p><span style="font-weight: bold; color: brown;">Laugh, sip, and gather around the fire </span>while I keep the food coming.</p>
+      </div>
+
+      <div class="text-card final-step">
+        <div class="eyebrow-caps">Final</div>
+        <h1>No mess. No stress.</h1>
+        <p>When the night winds down, <span style="font-weight: bold; color: brown;"> I clean up everything I used </span>and head out.</p>
+      </div>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <div class="mouse"><div class="wheel"></div></div>
+      <div>scroll down</div>
     </div>
   </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container text-center">
-      <p class="footer-bottom">© 2025 trego.cy — Crafted with love, smoke, and a hint of sin 🔥</p>
-    </div>
-  </footer>
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "trego.cy",
-    "image": "https://trego.cy/assets/hero-preview.jpg",
-    "description": "Eve's second temptation — fire-cooked meats and soulful BBQ in Cyprus.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "Cyprus"
-    },
-    "url": "https://trego.cy",
-    "sameAs": [
-      "https://www.instagram.com/trego.cy"
-    ],
-    "servesCuisine": "BBQ, Grill, Mediterranean"
-  }
-  </script>
-  <script>
-    const gallery = document.querySelector('.about-gallery');
-    const photos = document.querySelectorAll('.about-gallery .photo');
-
-    function randomizePhotos() {
-      const galleryWidth = gallery.offsetWidth;
-      const photoSize = 260;
-      const columns = Math.floor(galleryWidth / (photoSize + 40));
-      const rows = Math.ceil(photos.length / columns);
-      const spacingX = galleryWidth / columns;
-      const spacingY = 300;
-
-      gallery.style.height = `${rows * spacingY + 300}px`;
-
-      photos.forEach((photo, index) => {
-        const col = index % columns;
-        const row = Math.floor(index / columns);
-        const randomX = col * spacingX + Math.random() * 60 - 30;
-        const randomY = row * spacingY + Math.random() * 60 - 30;
-        const randomRot = (Math.random() * 6 - 3).toFixed(2);
-
-        photo.style.top = `${randomY}px`;
-        photo.style.left = `${randomX}px`;
-        photo.style.setProperty('--rot', `${randomRot}deg`);
-        photo.style.opacity = 1;
-      });
-    }
-
-    window.addEventListener('load', randomizePhotos);
-    window.addEventListener('resize', () => {
-      clearTimeout(window.randomizeTimeout);
-      window.randomizeTimeout = setTimeout(randomizePhotos, 400);
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
