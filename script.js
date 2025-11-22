@@ -3,15 +3,14 @@ const steakWrap = document.getElementById("steakWrap");
 const grill = document.getElementById("grill");
 const fire  = document.getElementById("fire");
 const glow  = document.getElementById("glow");
+const smoke = document.getElementById("smoke");
 const particlesBack = document.getElementById("particlesBack");
 const particlesFront = document.getElementById("particlesFront");
 const stuckLayer = document.getElementById("stuckLayer");
 const scrollHint = document.getElementById("scrollHint");
 const texts = Array.from(document.querySelectorAll(".text-card"));
-const searMarks = document.getElementById("searMarks");
 const textWrap = document.getElementById("textWrap");
 const sceneEl = document.getElementById("scene");
-const smokeEl = document.getElementById("smoke");
 
 // ====== helpers ======
 const lerp = (a,b,t)=> a+(b-a)*t;
@@ -27,6 +26,7 @@ function getScrollProgress(){
   return clamp01((window.scrollY || document.documentElement.scrollTop) / (maxScroll || 1));
 }
 
+// segments
 const segs = {
   intro:[0.00,0.10],
   pepper:[0.10,0.30],
@@ -60,18 +60,15 @@ async function loadLogo(){
     const all = [...logoSlot.querySelectorAll("path")];
     if(all.length){
       const firstFill = (all[0].getAttribute("fill") || "").toLowerCase();
-      if(firstFill === "#000000" || firstFill === "black" || firstFill === "rgb(0,0,0)"){
-        all[0].remove();
-      }
+      if(firstFill === "#000000" || firstFill === "black" || firstFill === "rgb(0,0,0)") all[0].remove();
     }
 
     const candidates = [...logoSlot.querySelectorAll("path")];
     const lens = candidates.map(p => p.getTotalLength());
     const maxLen = Math.max(...lens);
-
     const threshold = Math.max(35, maxLen * 0.28);
-    logoPaths = candidates.filter((p,i)=> lens[i] >= threshold);
 
+    logoPaths = candidates.filter((p,i)=> lens[i] >= threshold);
     logoLens = logoPaths.map(p=>{
       p.classList.add("logo-path");
       p.style.fill = "none";
@@ -81,12 +78,9 @@ async function loadLogo(){
       return len;
     });
 
-    candidates.forEach(p=>{
-      if(!logoPaths.includes(p)) p.style.display="none";
-    });
+    candidates.forEach(p=>{ if(!logoPaths.includes(p)) p.style.display="none"; });
   }catch(e){}
 }
-
 function drawLogo(scrollP, finishAt){
   if(!logoPaths.length) return;
   const tRaw = clamp01(scrollP / finishAt);
@@ -98,28 +92,6 @@ function drawLogo(scrollP, finishAt){
 }
 loadLogo();
 
-// ====== particles ======
-const PEPPER_COUNT = 40;
-const SALT_COUNT   = 40;
-
-function makeParticle(type, parent){
-  const d = document.createElement("div");
-  d.className = `p ${type}`;
-  parent.appendChild(d);
-  return d;
-}
-const pepperFall = Array.from({length:PEPPER_COUNT},()=>makeParticle("pepper", particlesBack));
-const saltFall   = Array.from({length:SALT_COUNT},()=>makeParticle("salt", particlesFront));
-
-function makeStuck(type){
-  const d = document.createElement("div");
-  d.className = `stuck ${type}`;
-  stuckLayer.appendChild(d);
-  return d;
-}
-const pepperStuck = Array.from({length:PEPPER_COUNT},()=>makeStuck("pepper"));
-const saltStuck   = Array.from({length:SALT_COUNT},()=>makeStuck("salt"));
-
 // cache scene rect
 let sceneRect = null;
 function updateSceneRect(){ sceneRect = sceneEl.getBoundingClientRect(); }
@@ -130,67 +102,15 @@ function steakCenterPx(){
   return { cx: sceneRect.width/2, cy: sceneRect.height*0.22 };
 }
 
-function layoutStuck(list, seedOffset=0){
-  list.forEach((s,i)=>{
-    const r1 = rand(i+seedOffset);
-    const r2 = rand(i*7.1+seedOffset);
-
-    s.style.left = lerp(16,84,r1) + "%";
-    s.style.top  = lerp(18,74,r2) + "%";
-
-    const size = lerp(3.2, 7.2, rand(i*9.9 + seedOffset));
-    s.style.width = size + "px";
-    s.style.height = size + "px";
-
-    const rot = lerp(-40, 40, rand(i*5.3 + seedOffset));
-    s.style.transform = `rotate(${rot}deg)`;
-  });
-}
-layoutStuck(pepperStuck, 22);
-layoutStuck(saltStuck, 777);
-
-function setFalling(list, t, seedOffset=0){
-  const {cx, cy} = steakCenterPx();
-  const tt = easeInOut(t);
-
-  list.forEach((p,i)=>{
-    const r1 = rand(i+seedOffset);
-    const r2 = rand(i*7.3+seedOffset);
-
-    const startX = cx + lerp(-160,160, r1);
-    const startY = cy - lerp(180,280, r2);
-    const endX   = cx + lerp(-90,90,  r1);
-    const endY   = cy + lerp(-10,70,  r2);
-
-    const x = lerp(startX, endX, tt);
-    const y = lerp(startY, endY, tt);
-    const spin = lerp(-120,180, tt);
-    const sizeJitter = lerp(0.5, 1.4, rand(i*13.7 + seedOffset));
-    const scale = lerp(.55,1.15, tt) * sizeJitter;
-    const wobble = lerp(-12, 12, rand(i*3.3 + seedOffset));
-
-    p.style.opacity = lerp(0,1, tt) * (t<.9 ? 1 : lerp(1,0,(t-.9)/.1));
-    p.style.transform = `
-      translate(${x}px,${y}px)
-      rotate(${spin + wobble}deg)
-      scale(${scale})
-    `;
-  });
-}
-
-const hideFalling = list => list.forEach(p=>p.style.opacity=0);
-const showStuck = (list,a=1)=> list.forEach(s=>s.style.opacity=a);
-const hideStuck = list => list.forEach(s=>s.style.opacity=0);
-
-// ====== steak swing / landing ======
 function swingX(t){
-  const amp = lerp(140,55,t);
-  const phase = t*Math.PI*3;
+  // smaller amplitude, fewer oscillations = smoother
+  const amp = lerp(90, 32, t);
+  const phase = t * Math.PI * 2; // ~1 full sway
   return Math.sin(phase) * amp;
 }
 function swingR(t){
-  const amp = lerp(28,10,t);
-  const phase = t*Math.PI*3 + 0.6;
+  const amp = lerp(16, 6, t);
+  const phase = t * Math.PI * 2 + 0.5;
   return Math.sin(phase) * amp;
 }
 const swingEndX = swingX(1);
@@ -199,9 +119,9 @@ const swingEndR = swingR(1);
 // ====== main loop ======
 let prevStep = 0;
 
+// Adjusted the initial position of the meat for step 1 to start higher and move down consistently
 function animate(){
   const p = getScrollProgress();
-
   drawLogo(p, segs.land[0]);
 
   // text steps
@@ -224,76 +144,64 @@ function animate(){
     scrollHint.style.transform = "translateX(-50%) translateY(0)";
   }
 
-  // reset visibilities
-  hideFalling(pepperFall);
-  hideFalling(saltFall);
-  hideStuck(pepperStuck);
-  hideStuck(saltStuck);
+  // reset
   grill.style.opacity=0;
   fire.style.opacity=0;
   glow.style.opacity=0;
-  if(smokeEl) smokeEl.style.setProperty("--smoke", 0);
+  smoke.style.opacity=0;
 
   let x=0,y=0,r=0,scale=1;
 
-  // intro
-  const ti = segT(p,segs.intro);
-  if(p<=segs.intro[1]) y = lerp(0,8,easeInOut(ti));
+  if (p <= segs.swing[0]) {
+    const tPre = easeInOut(clamp01(p / segs.swing[0])); 
 
-  // pepper
-  const tp = segT(p,segs.pepper);
-  if(p>segs.intro[1] && p<=segs.pepper[1]){
-    y = lerp(0,10,easeInOut(tp));
-    setFalling(pepperFall,tp,11);
-    if(tp>0.9) showStuck(pepperStuck, lerp(0,1,(tp-0.9)/0.1));
-  } else if(p>segs.pepper[1]){
-    showStuck(pepperStuck,1);
+    // continuous drop
+    y = lerp(-160, 10, tPre);
+
+    // gentle left-right sway during early steps
+    const preAmp = lerp(18, 6, tPre);          // small sway that calms down
+    const prePhase = p * Math.PI * 2;         // slow single sway across steps 1–3
+    x = Math.sin(prePhase) * preAmp;
+
+    // tiny matching tilt
+    r = Math.sin(prePhase + 0.6) * lerp(4, 1, tPre);
+
+    scale = lerp(1.04, 1.0, tPre);
   }
 
-  // salt
-  const ts = segT(p,segs.salt);
-  if(p>segs.pepper[1] && p<=segs.salt[1]){
-    y = 10;
-    setFalling(saltFall,ts,999);
-    if(ts>0.9) showStuck(saltStuck, lerp(0,1,(ts-0.9)/0.1));
-  } else if(p>segs.salt[1]){
-    showStuck(pepperStuck,1);
-    showStuck(saltStuck,1);
-  }
-
-  // swing
-  const tw = segT(p,segs.swing);
-  if(p>segs.salt[1] && p<=segs.swing[1]){
+  // ====== SWING DESCENT (steps 4-ish) ======
+  const tw = segT(p, segs.swing);
+  if (p > segs.swing[0] && p <= segs.swing[1]) {
     const t = easeInOut(tw);
-    y = lerp(10,255,t);
+
+    // continue descending while swinging
+    y = lerp(10, 250, t);
     x = swingX(t);
     r = swingR(t);
-    scale = lerp(1,0.98,t);
+    scale = lerp(1.0, 0.98, t);
   }
 
-  // landing + sear + smoke
+  // landing
   const tl = segT(p,segs.land);
   if(p>segs.swing[1]){
     const t = easeInOut(tl);
-    y = lerp(255,300,t);
+
+    // finish higher so it sits on grill
+    y = lerp(250,270,t);
     x = lerp(swingEndX,0,t);
     r = lerp(swingEndR,0,t);
-    scale = lerp(0.98,1.03,t);
+    scale = lerp(0.98,1.02,t);
 
     steakWrap.style.setProperty("--sear", t);
-    if(searMarks) searMarks.style.opacity = t;
-
-    // smoke fades in quickly when landing starts
-    if(smokeEl){
-      const smokeT = clamp01((t - 0.08) / 0.92); // delay a hair
-      smokeEl.style.setProperty("--smoke", smokeT);
-    }
 
     grill.style.opacity = lerp(0,1,t);
     grill.style.transform =
       `translate(-50%,-50%) perspective(900px) rotateX(58deg) translateZ(-120px) scale(${lerp(.95,1,t)})`;
     fire.style.opacity  = lerp(0,1,t);
     glow.style.opacity  = lerp(0,1,t);
+
+    // show smoke on landing
+    smoke.style.opacity = lerp(0,1, clamp01((t-0.15)/0.6));
   }
 
   steakWrap.style.transform =
@@ -304,5 +212,4 @@ function animate(){
 
   requestAnimationFrame(animate);
 }
-
 animate();

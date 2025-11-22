@@ -103,108 +103,16 @@
       <div class="particles-back" id="particlesBack"></div>
       <div class="particles-front" id="particlesFront"></div>
 
-      <div class="steak-wrap" id="steakWrap">
-        <!-- smoke (hidden until landing) -->
-        <div class="smoke" id="smoke" aria-hidden="true">
-          <svg viewBox="0 0 460 260" class="smoke-svg">
-            <path class="smoke-line l1" d="M110,210 C85,185 105,165 88,140 C70,112 92,92 82,70" />
-            <path class="smoke-line l2" d="M230,212 C210,188 235,168 218,144 C198,116 220,96 206,70" />
-            <path class="smoke-line l3" d="M350,210 C326,186 352,166 334,142 C314,114 338,94 326,70" />
-          </svg>
-        </div>
-
-        <svg class="steak-svg" viewBox="0 0 460 260" aria-hidden="true">
-          <defs>
-            <radialGradient id="meatGrad2" cx="50%" cy="35%">
-              <stop offset="0%" stop-color="#ffb1b1"/>
-              <stop offset="55%" stop-color="#ad2c2c"/>
-              <stop offset="100%" stop-color="#4a0b0b"/>
-            </radialGradient>
-
-            <radialGradient id="fatGrad2" cx="40%" cy="40%">
-              <stop offset="0%" stop-color="#fff2f2"/>
-              <stop offset="100%" stop-color="#f5cfcf"/>
-            </radialGradient>
-          </defs>
-
-          <!-- RIBEYE OUTLINE -->
-          <path
-            d="
-              M18,138
-              C14,108 28,78 60,60
-              C92,42 140,32 190,30
-              L292,30
-              C342,32 392,44 422,68
-              C450,90 456,118 450,146
-              C442,186 416,208 378,224
-              C338,242 292,250 232,250
-              C160,250 100,238 58,214
-              C28,198 12,170 18,138
-              Z"
-            fill="url(#meatGrad2)"
-            stroke="#2b0707"
-            stroke-width="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-
-          <!-- FAT CAP -->
-          <path
-            d="
-              M70,78
-              C96,48 168,34 238,34
-              L292,36
-              C340,40 382,56 394,82
-              C408,112 378,134 322,142
-              C268,150 206,146 150,132
-              C104,120 54,104 70,78
-              Z"
-            fill="url(#fatGrad2)"
-            opacity="0.9"
-          />
-
-          <!-- MARBLING -->
-          <path
-            d="M120,128
-               C175,110 230,130 292,122
-               C342,116 368,130 382,144"
-            fill="none"
-            stroke="#ffe2e2"
-            stroke-width="9"
-            stroke-linecap="round"
-            opacity="0.42"
-          />
-          <path
-            d="M118,154
-               C168,144 228,160 286,154
-               C334,148 366,162 386,178"
-            fill="none"
-            stroke="#ffd5d5"
-            stroke-width="8"
-            stroke-linecap="round"
-            opacity="0.35"
-          />
-          <path
-            d="M150,176
-               C208,168 252,184 300,176"
-            fill="none"
-            stroke="#ffdede"
-            stroke-width="7"
-            stroke-linecap="round"
-            opacity="0.30"
-          />
-
-          <!-- SEAR MARKS (unchanged style, revealed on landing) -->
-          <g id="searMarks" opacity="0">
-            <path d="M115 122 L185 70" stroke="#2a0707" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
-            <path d="M150 152 L220 95" stroke="#2a0707" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
-            <path d="M185 178 L255 115" stroke="#2a0707" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
-            <path d="M222 198 L292 135" stroke="#2a0707" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
-            <path d="M258 210 L330 150" stroke="#2a0707" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
-          </g>
+      <!-- SMOKE (wavy lines, revealed on landing) -->
+      <div class="smoke" id="smoke" aria-hidden="true">
+        <svg viewBox="0 0 500 300">
+         
         </svg>
+      </div>
 
-        <div class="stuck-layer" id="stuckLayer"></div>
+      <!-- MEAT IMAGE -->
+      <div class="steak-wrap" id="steakWrap">
+        <img id="meatImg" src="/assets/meat-img.png" alt="Prime rib" draggable="false"/>
       </div>
 
       <div class="grill" id="grill"><div class="grates"></div></div>
