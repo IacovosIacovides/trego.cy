@@ -2,6 +2,7 @@
   --bg:#050507;
   --fg:#f7f7f7;
   --muted:#b8b8b8;
+  scroll-behavior: smooth;
 }
 *{box-sizing:border-box;}
 body{

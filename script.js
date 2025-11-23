@@ -6,7 +6,6 @@ const glow  = document.getElementById("glow");
 const smoke = document.getElementById("smoke");
 const particlesBack = document.getElementById("particlesBack");
 const particlesFront = document.getElementById("particlesFront");
-const stuckLayer = document.getElementById("stuckLayer");
 const scrollHint = document.getElementById("scrollHint");
 const texts = Array.from(document.querySelectorAll(".text-card"));
 const textWrap = document.getElementById("textWrap");
@@ -102,24 +101,28 @@ function steakCenterPx(){
   return { cx: sceneRect.width/2, cy: sceneRect.height*0.22 };
 }
 
-function swingX(t){
-  // smaller amplitude, fewer oscillations = smoother
-  const amp = lerp(90, 32, t);
-  const phase = t * Math.PI * 2; // ~1 full sway
-  return Math.sin(phase) * amp;
+// ====== UNIFIED SWING (same for all steps) ======
+const SWING_AMPLITUDE_X = 36;  // px left-right
+const SWING_AMPLITUDE_R = 6;   // degrees tilt
+const SWING_CYCLES = 1.35;     // full swings across full scroll
+
+function unifiedSwing(p){
+  const phase = p * Math.PI * 2 * SWING_CYCLES;
+
+  // only damp right before / during landing to settle smoothly
+  const dampStart = segs.land[0];
+  const dampT = p < dampStart ? 1 : lerp(1, 0, segT(p, segs.land));
+  const damp = easeInOut(dampT);
+
+  return {
+    x: Math.sin(phase) * SWING_AMPLITUDE_X * damp,
+    r: Math.sin(phase + 0.6) * SWING_AMPLITUDE_R * damp
+  };
 }
-function swingR(t){
-  const amp = lerp(16, 6, t);
-  const phase = t * Math.PI * 2 + 0.5;
-  return Math.sin(phase) * amp;
-}
-const swingEndX = swingX(1);
-const swingEndR = swingR(1);
 
 // ====== main loop ======
 let prevStep = 0;
 
-// Adjusted the initial position of the meat for step 1 to start higher and move down consistently
 function animate(){
   const p = getScrollProgress();
   drawLogo(p, segs.land[0]);
@@ -144,53 +147,36 @@ function animate(){
     scrollHint.style.transform = "translateX(-50%) translateY(0)";
   }
 
-  // reset
+  // reset scene elements each frame
   grill.style.opacity=0;
   fire.style.opacity=0;
   glow.style.opacity=0;
   smoke.style.opacity=0;
 
-  let x=0,y=0,r=0,scale=1;
+  let x=0, y=0, r=0, scale=1;
 
-  if (p <= segs.swing[0]) {
-    const tPre = easeInOut(clamp01(p / segs.swing[0])); 
+  // unified swing values
+  const { x: sx, r: sr } = unifiedSwing(p);
 
-    // continuous drop
-    y = lerp(-160, 10, tPre);
+  // ====== FALL + SWING (all steps use same swing) ======
+  if (p <= segs.land[0]) {
+    const tFall = easeInOut(segT(p, [0, segs.land[0]]));
 
-    // gentle left-right sway during early steps
-    const preAmp = lerp(18, 6, tPre);          // small sway that calms down
-    const prePhase = p * Math.PI * 2;         // slow single sway across steps 1–3
-    x = Math.sin(prePhase) * preAmp;
-
-    // tiny matching tilt
-    r = Math.sin(prePhase + 0.6) * lerp(4, 1, tPre);
-
-    scale = lerp(1.04, 1.0, tPre);
+    y = lerp(-160, 250, tFall);   // smooth continuous drop
+    x = sx;
+    r = sr;
+    scale = lerp(1.04, 0.98, tFall);
   }
 
-  // ====== SWING DESCENT (steps 4-ish) ======
-  const tw = segT(p, segs.swing);
-  if (p > segs.swing[0] && p <= segs.swing[1]) {
-    const t = easeInOut(tw);
-
-    // continue descending while swinging
-    y = lerp(10, 250, t);
-    x = swingX(t);
-    r = swingR(t);
-    scale = lerp(1.0, 0.98, t);
-  }
-
-  // landing
-  const tl = segT(p,segs.land);
-  if(p>segs.swing[1]){
+  // ====== LANDING ======
+  const tl = segT(p, segs.land);
+  if (p > segs.land[0]) {
     const t = easeInOut(tl);
 
-    // finish higher so it sits on grill
-    y = lerp(250,270,t);
-    x = lerp(swingEndX,0,t);
-    r = lerp(swingEndR,0,t);
-    scale = lerp(0.98,1.02,t);
+    y = lerp(250, 270, t);        // sit on grill
+    x = lerp(sx, 0, t);           // settle to center
+    r = lerp(sr, 0, t);
+    scale = lerp(0.98, 1.02, t);
 
     steakWrap.style.setProperty("--sear", t);
 
@@ -204,6 +190,7 @@ function animate(){
     smoke.style.opacity = lerp(0,1, clamp01((t-0.15)/0.6));
   }
 
+  // apply transform
   steakWrap.style.transform =
     `translate(-50%,-50%)
      translate3d(${x}px,${y}px,140px)
