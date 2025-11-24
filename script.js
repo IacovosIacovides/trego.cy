@@ -43,9 +43,15 @@ const VH_PER_STEP = 1.0;   // ~1 viewport per text step
 const EXTRA_VH = 1.5;      // cushion for intro/landing
 
 function setScrollLength(){
-  const totalVh = (stepCount * VH_PER_STEP + EXTRA_VH) * 100;
-  document.body.style.minHeight = `${totalVh}vh`;
+  const vhPx = window.innerHeight;          // real pixel viewport height
+  const totalScreens = stepCount * VH_PER_STEP + EXTRA_VH;
+  const totalPx = totalScreens * vhPx;      // convert to real px from vh
+
+  const EXTRA_PX = 200;                     // buffer so all devices reach final steps
+  document.body.style.minHeight = `${totalPx + EXTRA_PX}px`;
 }
+
+
 setScrollLength();
 window.addEventListener("resize", setScrollLength);
 
