@@ -338,3 +338,143 @@ p{
     font-size:0.68rem; line-height:1.22; opacity:0.85;
   }
 }
+/* ============================================================================
+   EXTENDED RESPONSIVE SUPPORT
+   Works on every viewport width & height without altering existing rules.
+   ========================================================================== */
+
+/* Use new viewport units on all mobile browsers */
+.stage{
+  height: 100svh;
+}
+
+/* Base scaling for full scene */
+.cook-scene{
+  --scene-scale: 1;
+  transform: translateY(7vh) scale(var(--scene-scale));
+  transform-origin: 50% 60%;
+}
+
+/* ---------------------------------------------------------------------------
+   ULTRAWIDE & LARGE DESKTOPS
+   ------------------------------------------------------------------------- */
+@media (min-width: 1600px){
+  .cook-scene{
+    --scene-scale: 1.15;
+  }
+  .logo-fixed-right svg{ width: 580px; }
+}
+
+/* ---------------------------------------------------------------------------
+   LAPTOPS / MEDIUM DESKTOPS
+   ------------------------------------------------------------------------- */
+@media (max-width: 1400px){
+  .cook-scene{ --scene-scale: 0.95; }
+}
+
+@media (max-width: 1200px){
+  .cook-scene{ --scene-scale: 0.88; }
+  .logo-fixed-right svg{ width: 420px; }
+}
+
+/* ---------------------------------------------------------------------------
+   TABLETS (landscape & portrait)
+   ------------------------------------------------------------------------- */
+@media (max-width: 1024px){
+  .cook-scene{ --scene-scale: 0.80; }
+}
+
+@media (max-width: 900px){
+  .cook-scene{ --scene-scale: 0.75; }
+  .logo-fixed-right svg{ width: 300px; }
+}
+
+/* iPad Mini / small tablets */
+@media (max-width: 780px){
+  .cook-scene{ --scene-scale: 0.70; }
+  .text-wrap{ padding-top: 18vh; }
+}
+
+/* ---------------------------------------------------------------------------
+   PHONES — PORTRAIT
+   ------------------------------------------------------------------------- */
+@media (max-width: 600px){
+  .cook-scene{
+    --scene-scale: 0.64;
+    width: 100vw;
+    height: 70vh;
+    transform: translateY(5vh) scale(var(--scene-scale));
+  }
+  .logo-fixed-right svg{ width: 200px; }
+  h1{ max-width: 22ch; }
+  p{ max-width: 40ch; }
+}
+
+/* Small phones: 360–420px width (common Android sizes) */
+@media (max-width: 420px){
+  .cook-scene{
+    --scene-scale: 0.58;
+    height: 72vh;
+    transform: translateY(4vh) scale(var(--scene-scale));
+  }
+  h1{ font-size: clamp(1.8rem, 6vw, 2.4rem); }
+  p{ font-size: clamp(0.9rem, 4vw, 1.15rem); }
+}
+
+/* Ultra-small phones (iPhone SE, 320px android) */
+@media (max-width: 340px){
+  .cook-scene{
+    --scene-scale: 0.52;
+    transform: translateY(2vh) scale(var(--scene-scale));
+  }
+  .text-wrap{ padding-top: 20vh; }
+  .logo-fixed-right svg{ width: 150px; }
+}
+
+/* ---------------------------------------------------------------------------
+   PHONES — LANDSCAPE (short height)
+   ------------------------------------------------------------------------- */
+@media (max-height: 600px){
+  .cook-scene{
+    --scene-scale: 0.55;
+    transform: translateY(2vh) scale(var(--scene-scale));
+    height: 90vh;
+  }
+  .text-wrap{
+    padding-top: 8vh;
+  }
+}
+
+/* Extra-short (notches, foldables, landscape with browser bars) */
+@media (max-height: 480px){
+  .cook-scene{
+    --scene-scale: 0.48;
+    transform: translateY(0) scale(var(--scene-scale));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   SQUARE & 4:3 DEVICES (iPads, older tablets, foldables)
+   ------------------------------------------------------------------------- */
+@media (aspect-ratio: 4/3){
+  .cook-scene{
+    --scene-scale: 0.75;
+    transform: translateY(5vh) scale(var(--scene-scale));
+  }
+}
+
+@media (aspect-ratio: 1/1){
+  .cook-scene{
+    --scene-scale: 0.70;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   ULTRAWIDE LANDSCAPE PHONES (e.g., 21:9 Xperia)
+   ------------------------------------------------------------------------- */
+@media (max-height: 440px) and (min-width: 700px){
+  .cook-scene{
+    --scene-scale: 0.50;
+    transform: translateY(0) scale(var(--scene-scale));
+  }
+}
