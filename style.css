@@ -27,7 +27,6 @@ body{
   z-index:20;
   pointer-events:none;
   background: linear-gradient(180deg, rgba(5,5,7,0.90), rgba(5,5,7,0));
-  backdrop-filter: blur(2px);
 }
 
 /* LOGO right-center desktop */
