@@ -5,12 +5,19 @@
   scroll-behavior: smooth;
 }
 *{box-sizing:border-box;}
+
+html, body {
+  height: 100%;
+}
+
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:var(--bg);
   color:var(--fg);
-  height:480vh;
+
+  /* IMPORTANT: don't hardcode height like 480vh */
+  min-height: 100vh; /* JS will set this based on steps */
   overflow-x:hidden;
 }
 
@@ -243,7 +250,7 @@ body{
   place-items:start start;
   z-index:8;
   pointer-events:none;
-  padding:14vh 6vw 0; /* moved up */
+  padding:14vh 6vw 0;
   overflow:visible;
 }
 .text-card{
@@ -300,6 +307,7 @@ p{
 
 /* final-step positioning */
 .text-wrap.final-on{ transform: translateY(-6vh); }
+
 @media (max-width: 768px){
   .text-wrap{ padding:16vh 20px 0; place-items:start center; }
   .text-card{ width:min(760px, 94vw); }
@@ -330,23 +338,3 @@ p{
     font-size:0.68rem; line-height:1.22; opacity:0.85;
   }
 }
-/* .text-card {
-  position: relative;
-}
-
-.text-card::before {
-  content: "";
-  position: absolute;
-  inset: -18px -24px;
-  background: rgba(0, 0, 0, 0.10);
-  border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity .45s ease;
-}
-
-
-.text-card.show::before {
-  opacity: 1;
-} */

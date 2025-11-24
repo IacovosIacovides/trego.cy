@@ -11,18 +11,19 @@ const texts = Array.from(document.querySelectorAll(".text-card"));
 const textWrap = document.getElementById("textWrap");
 const sceneEl = document.getElementById("scene");
 
+if(!steakWrap || !grill || !fire || !glow || !smoke || !scrollHint || !textWrap || !sceneEl){
+  console.error("Missing required DOM elements.");
+}
+
 // ====== helpers ======
 const lerp = (a,b,t)=> a+(b-a)*t;
 const clamp01 = x => Math.max(0,Math.min(1,x));
 const easeInOut = t => (t<.5 ? 2*t*t : 1-((-2*t+2)**2)/2);
-const rand = i => {
-  const x = Math.sin(i*999.1)*10000;
-  return x - Math.floor(x);
-};
 
 function getScrollProgress(){
   const maxScroll = document.documentElement.scrollHeight - innerHeight;
-  return clamp01((window.scrollY || document.documentElement.scrollTop) / (maxScroll || 1));
+  const y = window.scrollY || document.documentElement.scrollTop;
+  return clamp01(y / (maxScroll || 1));
 }
 
 // segments
@@ -34,6 +35,19 @@ const segs = {
   land:[0.80,1.00],
 };
 const segT = (p,[a,b]) => p<=a ? 0 : p>=b ? 1 : (p-a)/(b-a);
+
+// ====== DYNAMIC SCROLL LENGTH ======
+// ensures ALL devices can reach final steps
+const stepCount = texts.length;
+const VH_PER_STEP = 1.0;   // ~1 viewport per text step
+const EXTRA_VH = 1.5;      // cushion for intro/landing
+
+function setScrollLength(){
+  const totalVh = (stepCount * VH_PER_STEP + EXTRA_VH) * 100;
+  document.body.style.minHeight = `${totalVh}vh`;
+}
+setScrollLength();
+window.addEventListener("resize", setScrollLength);
 
 // ====== LOGO ======
 const logoSlot = document.getElementById("logoSlot");
@@ -97,10 +111,6 @@ function updateSceneRect(){ sceneRect = sceneEl.getBoundingClientRect(); }
 updateSceneRect();
 window.addEventListener("resize", updateSceneRect);
 
-function steakCenterPx(){
-  return { cx: sceneRect.width/2, cy: sceneRect.height*0.22 };
-}
-
 // ====== UNIFIED SWING (same for all steps) ======
 const SWING_AMPLITUDE_X = 36;  // px left-right
 const SWING_AMPLITUDE_R = 6;   // degrees tilt
@@ -109,7 +119,7 @@ const SWING_CYCLES = 1.35;     // full swings across full scroll
 function unifiedSwing(p){
   const phase = p * Math.PI * 2 * SWING_CYCLES;
 
-  // only damp right before / during landing to settle smoothly
+  // damp right before / during landing to settle smoothly
   const dampStart = segs.land[0];
   const dampT = p < dampStart ? 1 : lerp(1, 0, segT(p, segs.land));
   const damp = easeInOut(dampT);
@@ -127,9 +137,13 @@ function animate(){
   const p = getScrollProgress();
   drawLogo(p, segs.land[0]);
 
-  // text steps
-  const stepCount = texts.length;
-  const stepIndex = Math.max(0, Math.min(stepCount-1, Math.floor(p * stepCount)));
+  // text steps (robust so last card always triggers)
+  const EPS = 1e-6;
+  const stepIndex = Math.min(
+    stepCount - 1,
+    Math.floor(p * stepCount + EPS)
+  );
+
   texts.forEach((t,i)=>{
     t.classList.remove("show","exit-right");
     if(i===stepIndex) t.classList.add("show");
@@ -158,7 +172,7 @@ function animate(){
   // unified swing values
   const { x: sx, r: sr } = unifiedSwing(p);
 
-  // ====== FALL + SWING (all steps use same swing) ======
+  // ====== FALL + SWING ======
   if (p <= segs.land[0]) {
     const tFall = easeInOut(segT(p, [0, segs.land[0]]));
 
@@ -199,4 +213,5 @@ function animate(){
 
   requestAnimationFrame(animate);
 }
+
 animate();
