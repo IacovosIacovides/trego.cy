@@ -478,3 +478,33 @@ p{
     transform: translateY(0) scale(var(--scene-scale));
   }
 }
+/* ------------------------------
+   SHORT HEIGHT LAPTOP FIX
+   (covers 1536x960, browser chrome, Windows scaling)
+--------------------------------*/
+@media (min-width: 900px) and (max-height: 900px){
+
+  /* move all cards a bit higher */
+  .text-wrap{
+    padding-top: 10vh;
+  }
+
+  /* slightly smaller text so Step 4 + Final fit */
+  h1{
+    font-size: clamp(1.8rem, 4.2vw, 3.1rem);
+  }
+  p{
+    font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  }
+
+  /* lift Final step more so headline + p are visible */
+  .text-wrap.final-on{
+    transform: translateY(-12vh);
+  }
+}
+
+/* even shorter heights (landscape / split screen) */
+@media (min-width: 900px) and (max-height: 760px){
+  .text-wrap{ padding-top: 8vh; }
+  .text-wrap.final-on{ transform: translateY(-16vh); }
+}
