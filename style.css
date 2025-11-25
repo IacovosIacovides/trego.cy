@@ -265,7 +265,7 @@ body{
 .text-card.exit-right{ opacity:0; transform: translateX(80px); }
 
 .final-step{
-  transform: translateY(-6vh);
+  transform: translateY(-6vh) !important;
 }
 
 .eyebrow, .eyebrow-caps{
