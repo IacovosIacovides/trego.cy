@@ -138,9 +138,16 @@ function unifiedSwing(p){
 
 // ====== main loop ======
 let prevStep = 0;
+let previousScrollProgress;
 
 function animate(){
+
   const p = getScrollProgress();
+  if(previousScrollProgress != p){
+    previousScrollProgress = p;
+  }else return
+
+
   drawLogo(p, segs.land[0]);
 
   // text steps (robust so last card always triggers)
@@ -209,15 +216,13 @@ function animate(){
     // show smoke on landing
     smoke.style.opacity = lerp(0,1, clamp01((t-0.15)/0.6));
   }
-
   // apply transform
   steakWrap.style.transform =
     `translate(-50%,-50%)
      translate3d(${x}px,${y}px,140px)
      rotate(${r}deg)
      scale(${scale})`;
-
   requestAnimationFrame(animate);
 }
-
-animate();
+window.addEventListener("scroll",
+  animate());
