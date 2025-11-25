@@ -148,7 +148,6 @@ function unifiedSwing(p){
 
 
 function animate(){
-console.log("animate frame" ,  ++ animateCount);
   const p = getScrollProgress();
   if(previousScrollProgress !== p)
     previousScrollProgress = p;
