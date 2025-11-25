@@ -11,6 +11,11 @@ const texts = Array.from(document.querySelectorAll(".text-card"));
 const textWrap = document.getElementById("textWrap");
 const sceneEl = document.getElementById("scene");
 
+let sceneRect = null;
+let prevStep = 0;
+let previousScrollProgress;
+let animateCount = 0;
+
 if(!steakWrap || !grill || !fire || !glow || !smoke || !scrollHint || !textWrap || !sceneEl){
   console.error("Missing required DOM elements.");
 }
@@ -20,11 +25,11 @@ const lerp = (a,b,t)=> a+(b-a)*t;
 const clamp01 = x => Math.max(0,Math.min(1,x));
 const easeInOut = t => (t<.5 ? 2*t*t : 1-((-2*t+2)**2)/2);
 
-function getScrollProgress(){
-  const maxScroll = document.documentElement.scrollHeight - innerHeight;
-  const y = window.scrollY || document.documentElement.scrollTop;
-  return clamp01(y / (maxScroll || 1));
-}
+
+// ====== UNIFIED SWING (same for all steps) ======
+const SWING_AMPLITUDE_X = 36;  // px left-right
+const SWING_AMPLITUDE_R = 6;   // degrees tilt
+const SWING_CYCLES = 1.35;     // full swings across full scroll
 
 // segments
 const segs = {
@@ -51,6 +56,12 @@ function setScrollLength(){
   document.body.style.minHeight = `${totalPx + EXTRA_PX}px`;
 }
 
+
+function getScrollProgress(){
+  const maxScroll = document.documentElement.scrollHeight - innerHeight;
+  const y = window.scrollY || document.documentElement.scrollTop;
+  return clamp01(y / (maxScroll || 1));
+}
 
 setScrollLength();
 window.addEventListener("resize", setScrollLength);
@@ -112,15 +123,12 @@ function drawLogo(scrollP, finishAt){
 loadLogo();
 
 // cache scene rect
-let sceneRect = null;
 function updateSceneRect(){ sceneRect = sceneEl.getBoundingClientRect(); }
 updateSceneRect();
-window.addEventListener("resize", updateSceneRect);
 
-// ====== UNIFIED SWING (same for all steps) ======
-const SWING_AMPLITUDE_X = 36;  // px left-right
-const SWING_AMPLITUDE_R = 6;   // degrees tilt
-const SWING_CYCLES = 1.35;     // full swings across full scroll
+window.addEventListener("resize", updateSceneRect);
+window.addEventListener("scroll", animate);
+
 
 function unifiedSwing(p){
   const phase = p * Math.PI * 2 * SWING_CYCLES;
@@ -137,15 +145,14 @@ function unifiedSwing(p){
 }
 
 // ====== main loop ======
-let prevStep = 0;
-let previousScrollProgress;
+
 
 function animate(){
-
+console.log("animate frame" ,  ++ animateCount);
   const p = getScrollProgress();
-  if(previousScrollProgress != p){
+  if(previousScrollProgress !== p)
     previousScrollProgress = p;
-  }else return
+  else return
 
 
   drawLogo(p, segs.land[0]);
@@ -224,5 +231,5 @@ function animate(){
      scale(${scale})`;
   requestAnimationFrame(animate);
 }
-window.addEventListener("scroll",
-  animate());
+
+// animate();
