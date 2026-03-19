@@ -429,9 +429,6 @@
       const themeToggle = document.getElementById("themeToggle");
       const themeIcon = document.getElementById("themeIcon");
       const themeStorageKey = "trego-theme";
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      );
 
       const menuButton = document.getElementById("menuButton");
       const openMenuGallery = document.getElementById("openMenuGallery");
@@ -469,7 +466,7 @@
       if (savedTheme === "light" || savedTheme === "dark") {
         applyTheme(savedTheme);
       } else {
-        applyTheme(systemPrefersDark.matches ? "dark" : "light");
+        applyTheme("light");
       }
 
       if (themeToggle) {
@@ -479,15 +476,6 @@
 
           applyTheme(nextTheme);
           localStorage.setItem(themeStorageKey, nextTheme);
-        });
-      }
-
-      if (systemPrefersDark) {
-        systemPrefersDark.addEventListener("change", function (event) {
-          const savedThemeNow = localStorage.getItem(themeStorageKey);
-          if (!savedThemeNow) {
-            applyTheme(event.matches ? "dark" : "light");
-          }
         });
       }
 
@@ -566,17 +554,14 @@
           if (event.key === "Escape") {
             closeLightbox();
           }
+
           if (event.key === "ArrowRight") {
             showNextImage();
           }
+
           if (event.key === "ArrowLeft") {
             showPrevImage();
           }
-          return;
-        }
-
-        if (event.key === "Escape") {
-          body.classList.remove("modal-open");
         }
       });
     </script>
