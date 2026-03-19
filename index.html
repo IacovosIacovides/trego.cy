@@ -1,174 +1,358 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" href="/assets/favicon.ico">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TREGO | Live-Fire Private Dining</title>
+    <meta
+      name="description"
+      content="Elegant live-fire private dining in Cyprus. Trego brings premium food, live cooking, and unforgettable atmosphere to your home, villa, or event."
+    />
+    <link rel="icon" href="assets/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#home">
+          <img src="assets/logo.png" alt="TREGO logo" class="logo" />
+          <div class="brand-copy">
+            <strong>TREGO</strong>
+            <span>Live-fire private dining</span>
+          </div>
+        </a>
 
-  <title>trego.cy | Private Live-Fire BBQ Chef for Events & Home Dining</title>
+        <div class="header-actions">
+          <button
+            class="mobile-menu-button"
+            id="menuButton"
+            aria-label="Toggle menu"
+          >
+            Menu
+          </button>
+          <a
+            class="pill-link"
+            href="https://www.instagram.com/trego.cy/"
+            target="_blank"
+            rel="noreferrer"
+            >@trego.cy</a
+          >
+        </div>
 
-  <meta name="keywords" content="
-  trego,
-  trego cyprus,
-  private bbq chef cyprus,
-  live fire cooking cyprus,
-  private chef cyprus,
-  bbq catering cyprus,
-  event catering cyprus,
-  outdoor cooking service,
-  fire pit chef,
-  steak catering cyprus,
-  private dining cyprus,
-  luxury catering cyprus,
-  home chef service cyprus
-  " />
-  <meta name="description" content="trego brings live-fire cooking to your home or event. Private BBQ chef, premium steak, and fire-pit dining so you can relax, host, and enjoy the night." />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://trego.cy/#business",
-        "name": "TREGO",
-        "url": "https://trego.cy/",
-        "image": "https://trego.cy/assets/logo.png",
-        "logo": "https://trego.cy/assets/logo.png",
-        "description": "TREGO brings live-fire BBQ and private event catering to your home or venue across Cyprus. We cook on-site with our BBQ and fire pit while you enjoy your party, then we clean up and leave the space spotless.",
-        "priceRange": "$$",
-        "telephone": "+35794109944",
-        "areaServed": [
-          { "@type": "Country", "name": "Cyprus" },
-          { "@type": "AdministrativeArea", "name": "Nicosia" },
-          { "@type": "AdministrativeArea", "name": "Limassol" },
-          { "@type": "AdministrativeArea", "name": "Larnaca" },
-          { "@type": "AdministrativeArea", "name": "Paphos" },
-          { "@type": "AdministrativeArea", "name": "Famagusta" }
-        ],
-        "serviceArea": { "@type": "Country", "name": "Cyprus" },
-        "sameAs": [ "https://instagram.com/trego.cy" ]
-      },
-      {
-        "@type": "Service",
-        "@id": "https://trego.cy/#service-livefire",
-        "name": "Live-Fire BBQ Catering & Private Events",
-        "provider": { "@id": "https://trego.cy/#business" },
-        "serviceType": "Live-fire BBQ chef for private events, home dining and parties",
-        "description": "On-site BBQ and fire-pit cooking for private parties and weddings across Cyprus. TREGO supplies the BBQ, fire pit and premium ingredients, cooks live through your event, serves guests and cleans everything after.",
-        "areaServed": { "@type": "Country", "name": "Cyprus" },
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "EUR",
-          "availability": "https://schema.org/InStock",
-          "url": "https://trego.cy/"
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://trego.cy/#website",
-        "url": "https://trego.cy/",
-        "name": "TREGO Cyprus",
-        "publisher": { "@id": "https://trego.cy/#business" },
-        "inLanguage": "en-CY"
-      }
-    ]
-  }
-  </script>
-
-  <meta property="og:description" content="A private live-fire cooking experience brought to your doorstep. trego handles the BBQ, fire pit, premium meat, fresh veggies and full cleanup—so you host without stress." />
-  <link rel="alternate" href="https://trego.cy/" hreflang="en-cy" />
-  <link rel="alternate" href="https://trego.cy/" hreflang="el-cy" />
-  <link rel="alternate" href="https://trego.cy/" hreflang="x-default" />
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <div class="topbar"></div>
-
-  <a href="https://instagram.com/trego.cy" target="_blank" class="ig-link" aria-label="Instagram">
-    <svg viewBox="0 0 24 24">
-      <path fill="white" d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3.25A4.75 4.75 0 1 0 16.75 12 4.75 4.75 0 0 0 12 7.25zm0 2A2.75 2.75 0 1 1 9.25 12 2.75 2.75 0 0 1 12 9.25zm4.5-3.88a1.12 1.12 0 1 0 1.12 1.12 1.12 1.12 0 0 0-1.12-1.12z"/>
-    </svg>
-  </a>
-
-  <div class="top-tagline">
-    Eve's second temptation, where even angels crave seconds
-  </div>
-
-  <div class="logo-fixed-right" id="logoSlot"></div>
-
-  <section class="stage">
-    <div class="cook-scene" id="scene">
-      <div class="particles-back" id="particlesBack"></div>
-      <div class="particles-front" id="particlesFront"></div>
-
-      <!-- SMOKE (wavy lines, revealed on landing) -->
-      <div class="smoke" id="smoke" aria-hidden="true">
-        <svg viewBox="0 0 500 300">
-         
-        </svg>
+        <nav class="nav" id="mainNav">
+          <a href="#experience">Experience</a>
+          <a href="#process">Process</a>
+          <a href="#gallery">Atmosphere</a>
+          <a href="#contact">Book</a>
+        </nav>
       </div>
+    </header>
 
-      <!-- MEAT IMAGE -->
-      <div class="steak-wrap" id="steakWrap">
-        <img id="meatImg" src="/assets/meat-img.png" alt="Prime rib" draggable="false"/>
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="hero-tag">Elegant live-fire dining experience</div>
+            <h1>
+              The <span style="color: #f6c779">fire</span> is part of the food.
+              <span
+                >The <span style="color: #f6c779">experience</span> is part of
+                the night.</span
+              >
+            </h1>
+            <p>
+              Trego brings a private live-fire food experience to your home or
+              event. Elevated, warm, and unforgettable. Premium ingredients.
+              Beautiful presentation. Full setup and clean-up included.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn" href="#contact">Book your event</a>
+              <a class="btn-secondary" href="#process">See how it works</a>
+            </div>
+
+            <!-- <div class="highlight-grid">
+              <div class="glass-card">Live-fire private dining</div>
+              <div class="glass-card">
+                Premium cuts &amp; elevated comfort food
+              </div>
+              <div class="glass-card">
+                Events, birthdays, villas &amp; intimate feasts
+              </div>
+              <div class="glass-card">
+                Setup, service flow &amp; clean-up included
+              </div>
+            </div> -->
+          </div>
+
+          <div class="hero-panel">
+            <div class="panel-quote">
+              <p>Eve's second temptation, where even angels crave seconds</p>
+            </div>
+            <div class="stack">
+              <div class="panel">
+                <div class="meta">Perfect for</div>
+                <div class="value">
+                  Private homes, villas, birthdays, celebrations, and intimate
+                  events where the experience is as important as the food.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="split-head">
+            <div>
+              <div class="eyebrow">The experience</div>
+              <h2>
+                More than <span style="color: #f6c779">catering.</span> More
+                than a <span style="color: #f6c779">meal.</span>
+              </h2>
+            </div>
+            <!-- <p class="section-intro">
+              trego offers a live-fire dining experience that brings warmth,
+              atmosphere, and unforgettable flavour to your home or event. It's
+              a feast for all the senses, built around the fire and designed to
+              create moments people talk about long after the night ends.
+            </p> -->
+          </div>
+
+          <div class="cards-3">
+            <article class="service-card">
+              <div class="service-icon">01</div>
+              <h3>Private Dining</h3>
+              <p>
+                A refined at-home feast built around warmth, smoke, and generous
+                hospitality.
+              </p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">02</div>
+              <h3>Celebrations &amp; Events</h3>
+              <p>
+                A live food experience that gives your gathering atmosphere from
+                the first spark to the last plate.
+              </p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">03</div>
+              <h3>Signature Fire Experience</h3>
+              <p>
+                Beautiful presentation, bold flavour, and the kind of cooking
+                guests talk about long after the night ends.
+              </p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">04</div>
+              <h3>Food for all</h3>
+              <p>
+                Options for every appetite, including vegan and vegetarian
+                dishes, all kissed by the fire.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band" id="process">
+        <div class="container">
+          <div>
+            <div class="eyebrow">How it works</div>
+            <h2 style="max-width: 850px">From booking to eating</h2>
+          </div>
+
+          <div class="process-grid">
+            <article class="process-card">
+              <div class="process-step">01</div>
+              <h3 style="margin-top: 16px">
+                <span style="color: #f6c779">You host. We bring the fire.</span>
+              </h3>
+              <p>
+                Private live-fire dining at your home, villa, celebration, or
+                event designed so you can enjoy your guests instead of managing
+                the kitchen.
+              </p>
+            </article>
+            <article class="process-card">
+              <div class="process-step">02</div>
+              <h3 style="margin-top: 16px">
+                <span style="color: #f6c779">We set the scene.</span>
+              </h3>
+              <p>
+                Our BBQ, fire pit, tools. Fast setup. Clean styling. A warm
+                visual centre piece for your guests gather around.
+              </p>
+            </article>
+            <article class="process-card">
+              <div class="process-step">03</div>
+              <h3 style="margin-top: 16px">
+                <span style="color: #f6c779">Everything is cooked live.</span>
+              </h3>
+              <p>
+                Premium meats, vegetables, sides, and signature flavours are
+                prepared in front of your guests for an experience that feels
+                intimate, theatrical, and unforgettable.
+              </p>
+            </article>
+            <article class="process-card">
+              <div class="process-step">04</div>
+              <h3 style="margin-top: 16px">
+                <span style="color: #f6c779">You stay in the moment.</span>
+              </h3>
+              <p>
+                No kitchen stress. No running in and out. No mess left behind.
+                Just fire, flavour, conversation, and a night worth remembering.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery">
+        <div class="container">
+          <div class="gallery-top">
+            <div>
+              <div class="eyebrow">Atmosphere</div>
+              <h2>Built for appetite. Styled for memory.</h2>
+            </div>
+            <a
+              class="link-inline"
+              href="https://www.instagram.com/trego.cy/"
+              target="_blank"
+              rel="noreferrer"
+              >Follow @trego.cy on Instagram</a
+            >
+          </div>
+
+          <div class="gallery-grid">
+            <article class="gallery-card gallery-card-1">
+                <div class="gallery-content">
+                <div class="gallery-number">01</div>
+                <p>Prime cuts, carefully chosen</p>
+                </div>
+            </article>
+
+            <article class="gallery-card gallery-card-2">
+                <div class="gallery-content">
+                <div class="gallery-number">02</div>
+                <p>Homemade sauces &amp; layered flavour</p>
+                </div>
+            </article>
+
+            <article class="gallery-card gallery-card-3">
+                <div class="gallery-content">
+                <div class="gallery-number">03</div>
+                <p>Fire-lit atmosphere</p>
+                </div>
+            </article>
+
+            <article class="gallery-card gallery-card-4">
+                <div class="gallery-content">
+                <div class="gallery-number">04</div>
+                <p>A feast served live</p>
+                </div>
+            </article>
+
+            <article class="gallery-card gallery-card-5">
+                <div class="gallery-content">
+                <div class="gallery-number">05</div>
+                <p>Elegant hosting without the stress</p>
+                </div>
+            </article>
+
+            <article class="gallery-card gallery-card-6">
+                <div class="gallery-content">
+                <div class="gallery-number">06</div>
+                <p>Moments built around the flame</p>
+                </div>
+            </article>
+        </div>
+      </section>
+
+      <section
+        class="section"
+        id="contact"
+        style="
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding-top: 88px;
+        "
+      >
+        <div class="container contact-grid">
+          <div class="contact-copy">
+            <div class="eyebrow">Bookings</div>
+            <h2>Let's create a night people <span style="color: #f6c779;">will talk about</span>.</h2>
+            <p>
+              Whether it's an intimate dinner, a birthday, a villa gathering, or
+              a special event, Trego brings the full live-fire experience
+              directly to you.
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <a
+              class="contact-link"
+              href="https://www.instagram.com/trego.cy/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>
+                <span class="small">Instagram</span>
+                <span class="big">@trego.cy</span>
+              </span>
+              <span class="arrow">→</span>
+            </a>
+
+            <a
+              class="contact-link"
+              href="https://www.tiktok.com/@trego.cy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>
+                <span class="small">TiTok</span>
+                <span class="big">trego.cy</span>
+              </span>
+              <span class="arrow">→</span>
+            </a>
+
+            <div class="contact-note">
+              Add your phone number, WhatsApp link, inquiry form, package
+              options, and real food photography here for a production-ready
+              version.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© 2026 TREGO. Live-fire private dining in Cyprus.</span>
       </div>
+    </footer>
 
-      <div class="grill" id="grill"><div class="grates"></div></div>
+    <script>
+      const menuButton = document.getElementById("menuButton");
+      const mainNav = document.getElementById("mainNav");
 
-      <div class="fire" id="fire">
-        <div class="flame f1"></div>
-        <div class="flame f2"></div>
-        <div class="flame f3"></div>
-        <div class="flame f4"></div>
-        <div class="flame f5"></div>
-        <div class="flame f6"></div>
-      </div>
+      menuButton.addEventListener("click", function () {
+        mainNav.classList.toggle("open");
+      });
 
-      <div class="glow" id="glow"></div>
-    </div>
-
-    <!-- STORY COPY -->
-    <div class="text-wrap" id="textWrap">
-      <div class="text-card">
-        <div class="eyebrow">Step 1</div>
-        <h1>Host the party. I'll bring the fire.</h1>
-        <p>Live-fire cooking at your place so you can <span style="font-weight: bold; color: brown;"> actually </span> enjoy your night.</p>
-      </div>
-
-      <div class="text-card">
-        <div class="eyebrow-caps">Step 2</div>
-        <h1>Ready to take over.</h1>
-        <p>I bring my BBQ and fire pit, set up fast, and get everything <span style="font-weight: bold; color: brown;">glowing</span>.</p>
-      </div>
-
-      <div class="text-card">
-        <div class="eyebrow-caps">Step 3</div>
-        <h1>Cooking happens live.</h1>
-        <p><span style="font-weight: bold; color: brown;"> Meat, veggies, sides, and smokeright </span> in front of you and your guests.</p>
-      </div>
-
-      <div class="text-card">
-        <div class="eyebrow-caps">Step 4</div>
-        <h1>You stay in the moment.</h1>
-        <p><span style="font-weight: bold; color: brown;">Laugh, sip, and gather around the fire </span>while I keep the food coming.</p>
-      </div>
-
-      <div class="text-card final-step">
-        <div class="eyebrow-caps">Final</div>
-        <h1>No mess. No stress.</h1>
-        <p>When the night winds down, <span style="font-weight: bold; color: brown;"> I clean up everything I used </span>and head out.</p>
-      </div>
-    </div>
-
-    <div class="scroll-hint" id="scrollHint">
-      <div class="mouse"><div class="wheel"></div></div>
-      <div>scroll down</div>
-    </div>
-  </section>
-
-  <script src="script.js"></script>
-</body>
+      document.querySelectorAll("#mainNav a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          mainNav.classList.remove("open");
+        });
+      });
+    </script>
+  </body>
 </html>
