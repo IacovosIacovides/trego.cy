@@ -4,7 +4,9 @@
   --radius-md: 18px;
   --max: 1200px;
 }
-
+::selection {
+  background: rgb(212, 21, 212);
+}
 /* LIGHT MODE */
 body[data-theme="light"] {
   --bg: #f6efe8;
@@ -699,7 +701,7 @@ body[data-theme="dark"] .process-card:hover {
 
 body[data-theme="light"] .process-step,
 body[data-theme="light"] .gallery-number {
-  color: #b27c6f;
+  color: #d8ada3;
 }
 
 body[data-theme="dark"] .process-step,
