@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body data-theme="light">
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="#home">
@@ -30,25 +30,40 @@
 
         <div class="header-actions">
           <button
-            class="mobile-menu-button"
-            id="menuButton"
-            aria-label="Toggle menu"
+            class="theme-toggle"
+            id="themeToggle"
+            type="button"
+            aria-label="Toggle theme"
+            title="Toggle theme"
           >
-            Menu
+            <span id="themeIcon" aria-hidden="true">☀</span>
           </button>
-          <a
+
+          <button
+            class="menu-trigger"
+            id="menuButton"
+            type="button"
+            aria-label="Open menu gallery"
+          >
+            <span class="accent-text" style="font-weight: bold">
+              Check our Menu</span
+            >
+          </button>
+
+          <!-- <a
             class="pill-link"
             href="https://www.instagram.com/trego.cy/"
             target="_blank"
             rel="noreferrer"
             >@trego.cy</a
-          >
+          > -->
         </div>
 
         <nav class="nav" id="mainNav">
           <a href="#experience">Experience</a>
           <a href="#process">Process</a>
           <a href="#gallery">Atmosphere</a>
+          <a href="#menu-section">Food Menu</a>
           <a href="#contact">Book</a>
         </nav>
       </div>
@@ -60,10 +75,10 @@
           <div>
             <div class="hero-tag">Elegant live-fire dining experience</div>
             <h1>
-              The <span style="color: #f6c779">fire</span> is part of the food.
+              The <span class="accent-text">fire</span> is part of the food.
               <span
-                >The <span style="color: #f6c779">experience</span> is part of
-                the night.</span
+                >The <span class="accent-text">experience</span> is part of the
+                night.</span
               >
             </h1>
             <p>
@@ -76,19 +91,6 @@
               <a class="btn" href="#contact">Book your event</a>
               <a class="btn-secondary" href="#process">See how it works</a>
             </div>
-
-            <!-- <div class="highlight-grid">
-              <div class="glass-card">Live-fire private dining</div>
-              <div class="glass-card">
-                Premium cuts &amp; elevated comfort food
-              </div>
-              <div class="glass-card">
-                Events, birthdays, villas &amp; intimate feasts
-              </div>
-              <div class="glass-card">
-                Setup, service flow &amp; clean-up included
-              </div>
-            </div> -->
           </div>
 
           <div class="hero-panel">
@@ -114,19 +116,13 @@
             <div>
               <div class="eyebrow">The experience</div>
               <h2>
-                More than <span style="color: #f6c779">catering.</span> More
-                than a <span style="color: #f6c779">meal.</span>
+                More than <span class="accent-text">catering.</span> More than a
+                <span class="accent-text">meal.</span>
               </h2>
             </div>
-            <!-- <p class="section-intro">
-              trego offers a live-fire dining experience that brings warmth,
-              atmosphere, and unforgettable flavour to your home or event. It's
-              a feast for all the senses, built around the fire and designed to
-              create moments people talk about long after the night ends.
-            </p> -->
           </div>
 
-          <div class="cards-3">
+          <div class="cards-4">
             <article class="service-card">
               <div class="service-icon">01</div>
               <h3>Private Dining</h3>
@@ -174,7 +170,7 @@
             <article class="process-card">
               <div class="process-step">01</div>
               <h3 style="margin-top: 16px">
-                <span style="color: #f6c779">You host. We bring the fire.</span>
+                <span class="accent-text">You host. We bring the fire.</span>
               </h3>
               <p>
                 Private live-fire dining at your home, villa, celebration, or
@@ -185,7 +181,7 @@
             <article class="process-card">
               <div class="process-step">02</div>
               <h3 style="margin-top: 16px">
-                <span style="color: #f6c779">We set the scene.</span>
+                <span class="accent-text">We set the scene.</span>
               </h3>
               <p>
                 Our BBQ, fire pit, tools. Fast setup. Clean styling. A warm
@@ -195,7 +191,7 @@
             <article class="process-card">
               <div class="process-step">03</div>
               <h3 style="margin-top: 16px">
-                <span style="color: #f6c779">Everything is cooked live.</span>
+                <span class="accent-text">Everything is cooked live.</span>
               </h3>
               <p>
                 Premium meats, vegetables, sides, and signature flavours are
@@ -206,7 +202,7 @@
             <article class="process-card">
               <div class="process-step">04</div>
               <h3 style="margin-top: 16px">
-                <span style="color: #f6c779">You stay in the moment.</span>
+                <span class="accent-text">You stay in the moment.</span>
               </h3>
               <p>
                 No kitchen stress. No running in and out. No mess left behind.
@@ -235,61 +231,110 @@
 
           <div class="gallery-grid">
             <article class="gallery-card gallery-card-1">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">01</div>
                 <p>Prime cuts, carefully chosen</p>
-                </div>
+              </div>
             </article>
 
             <article class="gallery-card gallery-card-2">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">02</div>
                 <p>Homemade sauces &amp; layered flavour</p>
-                </div>
+              </div>
             </article>
 
             <article class="gallery-card gallery-card-3">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">03</div>
                 <p>Fire-lit atmosphere</p>
-                </div>
+              </div>
             </article>
 
             <article class="gallery-card gallery-card-4">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">04</div>
                 <p>A feast served live</p>
-                </div>
+              </div>
             </article>
 
             <article class="gallery-card gallery-card-5">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">05</div>
                 <p>Elegant hosting without the stress</p>
-                </div>
+              </div>
             </article>
 
             <article class="gallery-card gallery-card-6">
-                <div class="gallery-content">
+              <div class="gallery-content">
                 <div class="gallery-number">06</div>
                 <p>Moments built around the flame</p>
-                </div>
+              </div>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="menu-section">
+        <div class="container">
+          <div class="split-head">
+            <div>
+              <div class="eyebrow">Menu</div>
+              <h2>
+                A look at the
+                <span class="accent-text">feast.</span>
+              </h2>
+            </div>
+            <p class="section-intro">
+              Tap through the menu and explore the dishes, sauces, sides, and
+              cuts that shape the Trego experience.
+            </p>
+          </div>
+
+          <div class="menu-stack-wrap">
+            <button
+              class="menu-stack"
+              id="openMenuGallery"
+              type="button"
+              aria-label="Open menu gallery"
+            >
+              <img
+                src="assets/4.png"
+                alt="Trego menu page 4"
+                class="menu-stack-card stack-card-4"
+              />
+              <img
+                src="assets/3.png"
+                alt="Trego menu page 3"
+                class="menu-stack-card stack-card-3"
+              />
+              <img
+                src="assets/2.png"
+                alt="Trego menu page 2"
+                class="menu-stack-card stack-card-2"
+              />
+              <img
+                src="assets/1.png"
+                alt="Trego menu page 1"
+                class="menu-stack-card stack-card-1"
+              />
+            </button>
+          </div>
         </div>
       </section>
 
       <section
         class="section"
         id="contact"
-        style="
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          padding-top: 88px;
-        "
+        style="border-top: 1px solid var(--line); padding-top: 88px"
       >
         <div class="container contact-grid">
           <div class="contact-copy">
             <div class="eyebrow">Bookings</div>
-            <h2>Let's create a night people <span style="color: #f6c779;">will talk about</span>.</h2>
+            <h2>
+              Let's create a night people
+              <span class="accent-text">will talk about</span>.
+            </h2>
             <p>
               Whether it's an intimate dinner, a birthday, a villa gathering, or
               a special event, Trego brings the full live-fire experience
@@ -318,7 +363,7 @@
               rel="noreferrer"
             >
               <span>
-                <span class="small">TiTok</span>
+                <span class="small">TikTok</span>
                 <span class="big">trego.cy</span>
               </span>
               <span class="arrow">→</span>
@@ -334,18 +379,207 @@
       </div>
     </footer>
 
+    <div class="menu-lightbox" id="menuLightbox" aria-hidden="true">
+      <div class="menu-lightbox-backdrop" id="menuLightboxBackdrop"></div>
+
+      <div
+        class="menu-lightbox-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu gallery"
+      >
+        <button
+          class="menu-lightbox-close"
+          id="menuLightboxClose"
+          aria-label="Close menu gallery"
+          type="button"
+        >
+          ✕
+        </button>
+
+        <button
+          class="menu-lightbox-arrow menu-lightbox-prev"
+          id="menuPrev"
+          aria-label="Previous image"
+          type="button"
+        >
+          ‹
+        </button>
+
+        <div class="menu-lightbox-image-wrap">
+          <img
+            id="menuLightboxImage"
+            src="assets/1.png"
+            alt="Trego menu page 1"
+          />
+        </div>
+
+        <button
+          class="menu-lightbox-arrow menu-lightbox-next"
+          id="menuNext"
+          aria-label="Next image"
+          type="button"
+        >
+          ›
+        </button>
+      </div>
+    </div>
+
     <script>
+      const body = document.body;
+
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const themeStorageKey = "trego-theme";
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      );
+
       const menuButton = document.getElementById("menuButton");
-      const mainNav = document.getElementById("mainNav");
+      const openMenuGallery = document.getElementById("openMenuGallery");
+      const menuLightbox = document.getElementById("menuLightbox");
+      const menuLightboxBackdrop = document.getElementById(
+        "menuLightboxBackdrop",
+      );
+      const menuLightboxClose = document.getElementById("menuLightboxClose");
+      const menuLightboxImage = document.getElementById("menuLightboxImage");
+      const menuPrev = document.getElementById("menuPrev");
+      const menuNext = document.getElementById("menuNext");
 
-      menuButton.addEventListener("click", function () {
-        mainNav.classList.toggle("open");
-      });
+      const menuImages = [
+        "assets/1.png",
+        "assets/2.png",
+        "assets/3.png",
+        "assets/4.png",
+        "assets/5.png",
+      ];
 
-      document.querySelectorAll("#mainNav a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          mainNav.classList.remove("open");
+      let currentMenuImage = 0;
+
+      function updateThemeIcon(theme) {
+        if (!themeIcon) return;
+        themeIcon.textContent = theme === "dark" ? "☾" : "☀";
+      }
+
+      function applyTheme(theme) {
+        body.setAttribute("data-theme", theme);
+        updateThemeIcon(theme);
+      }
+
+      const savedTheme = localStorage.getItem(themeStorageKey);
+
+      if (savedTheme === "light" || savedTheme === "dark") {
+        applyTheme(savedTheme);
+      } else {
+        applyTheme(systemPrefersDark.matches ? "dark" : "light");
+      }
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+          const currentTheme = body.getAttribute("data-theme");
+          const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+          applyTheme(nextTheme);
+          localStorage.setItem(themeStorageKey, nextTheme);
         });
+      }
+
+      if (systemPrefersDark) {
+        systemPrefersDark.addEventListener("change", function (event) {
+          const savedThemeNow = localStorage.getItem(themeStorageKey);
+          if (!savedThemeNow) {
+            applyTheme(event.matches ? "dark" : "light");
+          }
+        });
+      }
+
+      function updateMenuImage() {
+        if (!menuLightboxImage) return;
+        menuLightboxImage.src = menuImages[currentMenuImage];
+        menuLightboxImage.alt = `Trego menu page ${currentMenuImage + 1}`;
+      }
+
+      function openLightbox(index = 0) {
+        if (!menuLightbox) return;
+        currentMenuImage = index;
+        updateMenuImage();
+        menuLightbox.classList.add("open");
+        menuLightbox.setAttribute("aria-hidden", "false");
+        body.classList.add("modal-open");
+      }
+
+      function closeLightbox() {
+        if (!menuLightbox) return;
+        menuLightbox.classList.remove("open");
+        menuLightbox.setAttribute("aria-hidden", "true");
+        body.classList.remove("modal-open");
+      }
+
+      function showNextImage() {
+        currentMenuImage = (currentMenuImage + 1) % menuImages.length;
+        updateMenuImage();
+      }
+
+      function showPrevImage() {
+        currentMenuImage =
+          (currentMenuImage - 1 + menuImages.length) % menuImages.length;
+        updateMenuImage();
+      }
+
+      if (menuButton) {
+        menuButton.addEventListener("click", function () {
+          openLightbox(0);
+        });
+      }
+
+      if (openMenuGallery) {
+        openMenuGallery.addEventListener("click", function () {
+          openLightbox(0);
+        });
+      }
+
+      if (menuNext) {
+        menuNext.addEventListener("click", function (event) {
+          event.stopPropagation();
+          showNextImage();
+        });
+      }
+
+      if (menuPrev) {
+        menuPrev.addEventListener("click", function (event) {
+          event.stopPropagation();
+          showPrevImage();
+        });
+      }
+
+      if (menuLightboxClose) {
+        menuLightboxClose.addEventListener("click", function (event) {
+          event.stopPropagation();
+          closeLightbox();
+        });
+      }
+
+      if (menuLightboxBackdrop) {
+        menuLightboxBackdrop.addEventListener("click", closeLightbox);
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (menuLightbox && menuLightbox.classList.contains("open")) {
+          if (event.key === "Escape") {
+            closeLightbox();
+          }
+          if (event.key === "ArrowRight") {
+            showNextImage();
+          }
+          if (event.key === "ArrowLeft") {
+            showPrevImage();
+          }
+          return;
+        }
+
+        if (event.key === "Escape") {
+          body.classList.remove("modal-open");
+        }
       });
     </script>
   </body>
