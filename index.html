@@ -223,8 +223,8 @@
       }
 
       .calendar-day.maybe {
-        background: rgba(214, 154, 46, 0.14);
-        border-color: rgba(214, 154, 46, 0.48);
+        background: rgba(66, 51, 21, 0.459);
+        border-color: rgba(141, 117, 69, 0.459);
       }
 
       .calendar-day.booked {
@@ -264,7 +264,7 @@
       }
 
       .availability-dot.maybe {
-        background: #d69a2e;
+        background: rgba(66, 51, 21, 0.459);
       }
 
       .availability-dot.booked {
@@ -353,9 +353,35 @@
           grid-template-columns: 1fr;
         }
       }
+      @media (max-width: 760px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .gallery-card {
+          min-height: 120px;
+          height: 120px;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+
+        .gallery-card .gallery-content {
+          padding: 10px;
+        }
+
+        .gallery-card .gallery-number {
+          font-size: 14px;
+        }
+
+        .gallery-card .gallery-content p {
+          font-size: 13px;
+          margin: 0;
+        }
+      }
     </style>
   </head>
-  <body data-theme="light">
+  <body data-theme="dark">
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="#home">
@@ -367,16 +393,6 @@
         </a>
 
         <div class="header-actions">
-          <button
-            class="theme-toggle"
-            id="themeToggle"
-            type="button"
-            aria-label="Toggle theme"
-            title="Toggle theme"
-          >
-            <span id="themeIcon" aria-hidden="true">☀</span>
-          </button>
-
           <a
             class="menu-trigger"
             href="#menu-section"
@@ -392,14 +408,27 @@
             rel="noreferrer"
             >@trego.cy</a
           > -->
+
+          <button
+            class="burger"
+            id="burgerBtn"
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="mainNav"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
 
         <nav class="nav" id="mainNav">
+          <a href="#menu-section">Food Menu</a>
+          <a href="#availability">Availability</a>
           <a href="#experience">Experience</a>
           <a href="#process">Process</a>
           <a href="#gallery">Atmosphere</a>
-          <a href="#menu-section">Food Menu</a>
-          <a href="#availability">Availability</a>
           <a href="#contact">Book</a>
         </nav>
       </div>
@@ -409,18 +438,12 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <div class="hero-tag">Elegant live-fire dining experience</div>
             <h1>
-              The <span class="accent-text">fire</span> is part of the food.
-              <span
-                >The <span class="accent-text">experience</span> is part of the
-                night.</span
-              >
+              Because <span class="accent-text">fire</span> is part of the food.
             </h1>
             <p>
-              Trego brings a private live-fire food experience to your home or
-              event. Elevated, warm, and unforgettable. Premium ingredients.
-              Beautiful presentation. Full setup and clean-up included.
+              Trego brings private live-fire dining to your home or event. Full
+              setup and clean-up included.
             </p>
 
             <div class="hero-actions">
@@ -428,19 +451,143 @@
               <a class="btn-secondary" href="#process">See how it works</a>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="hero-panel">
-            <div class="panel-quote">
-              <p>Eve's second temptation, where even angels crave seconds</p>
+      <section class="section" id="menu-section">
+        <div class="container">
+          <div class="split-head">
+            <div>
+              <div class="eyebrow">Menu</div>
+              <h2>
+                Take a look at the
+                <span class="accent-text">feast.</span>
+              </h2>
             </div>
-            <div class="stack">
-              <div class="panel">
-                <div class="meta">Perfect for</div>
-                <div class="value">
-                  Private homes, villas, birthdays, celebrations, and intimate
-                  events where the experience is as important as the food.
-                </div>
+            <!-- <p class="section-intro">
+              Tap through the menu and explore the dishes, sauces, sides, and
+              cuts that shape the Trego experience.
+            </p> -->
+          </div>
+
+          <div class="publuu-menu-card">
+            <div class="publuu-menu-copy">
+              <span class="publuu-menu-kicker">THE FULL TREGO MENU</span>
+              <h3>Explore the feast.</h3>
+              <!-- <p>
+                Open our interactive menu and flip through every dish, side,
+                sauce and live-fire favourite.
+              </p> -->
+              <a
+                href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
+                class="btn publuu-menu-button show-publuu-viewer"
+              >
+                Show Menu <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <a
+              href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
+              class="publuu-cover show-publuu-viewer"
+              aria-label="Open Trego interactive menu"
+            >
+              <img
+                src="https://47gp61txie.execute-api.us-east-2.amazonaws.com/cover/1088396/2605678?icon=0&gradient=0"
+                alt="Trego interactive food menu cover"
+              />
+              <span class="publuu-cover-overlay">Tap to open</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band" id="availability">
+        <div class="container">
+          <div class="split-head">
+            <div>
+              <div class="eyebrow">Availability</div>
+              <h2>Find your <span class="accent-text">date.</span></h2>
+            </div>
+            <!-- <p class="section-intro">
+              Check our upcoming availability before getting in touch. Dates can
+              change quickly, so send us a message to confirm your event.
+            </p> -->
+          </div>
+
+          <div class="availability-shell">
+            <div class="availability-toolbar">
+              <div>
+                <h3>Upcoming dates</h3>
+                <p>
+                  Available dates are highlighted, “Maybe” dates are tentative,
+                  and booked dates are muted.
+                </p>
               </div>
+              <div class="availability-controls">
+                <button
+                  class="availability-nav"
+                  id="availabilityPrev"
+                  type="button"
+                  aria-label="Previous month"
+                >
+                  ‹
+                </button>
+                <button
+                  class="availability-nav"
+                  id="availabilityNext"
+                  type="button"
+                  aria-label="Next month"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <div class="availability-months" id="availabilityCalendars"></div>
+
+            <div class="availability-legend">
+              <span><i class="availability-dot"></i> Available</span>
+              <span
+                ><i class="availability-dot maybe"></i> Maybe / pending</span
+              >
+              <span
+                ><i class="availability-dot booked"></i> Booked /
+                unavailable</span
+              >
+            </div>
+
+            <div class="availability-manager" id="availabilityManager">
+              <strong>Manager mode</strong>
+              <p>
+                Click any future date to cycle: Available → Maybe → Booked.
+                Changes are saved automatically on this device.
+              </p>
+              <div class="availability-manager-actions">
+                <button
+                  class="availability-manager-button"
+                  id="copyAvailabilityData"
+                  type="button"
+                >
+                  Copy date data
+                </button>
+                <button
+                  class="availability-manager-button"
+                  id="resetAvailabilityData"
+                  type="button"
+                >
+                  Reset local changes
+                </button>
+              </div>
+              <div
+                class="availability-manager-toast"
+                id="availabilityManagerToast"
+                aria-live="polite"
+              ></div>
+            </div>
+
+            <div class="availability-cta">
+              <p>See a date that works for you?</p>
+              <a class="btn" href="#contact">Enquire about your event</a>
             </div>
           </div>
         </div>
@@ -611,145 +758,6 @@
         </div>
       </section>
 
-      <section class="section" id="menu-section">
-        <div class="container">
-          <div class="split-head">
-            <div>
-              <div class="eyebrow">Menu</div>
-              <h2>
-                A look at the
-                <span class="accent-text">feast.</span>
-              </h2>
-            </div>
-            <p class="section-intro">
-              Tap through the menu and explore the dishes, sauces, sides, and
-              cuts that shape the Trego experience.
-            </p>
-          </div>
-
-          <div class="publuu-menu-card">
-            <div class="publuu-menu-copy">
-              <span class="publuu-menu-kicker">THE FULL TREGO MENU</span>
-              <h3>Explore the feast.</h3>
-              <p>
-                Open our interactive menu and flip through every dish, side,
-                sauce and live-fire favourite.
-              </p>
-              <a
-                href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
-                class="btn publuu-menu-button show-publuu-viewer"
-              >
-                Show Menu <span aria-hidden="true">→</span>
-              </a>
-            </div>
-
-            <a
-              href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
-              class="publuu-cover show-publuu-viewer"
-              aria-label="Open Trego interactive menu"
-            >
-              <img
-                src="https://47gp61txie.execute-api.us-east-2.amazonaws.com/cover/1088396/2605678?icon=0&gradient=0"
-                alt="Trego interactive food menu cover"
-              />
-              <span class="publuu-cover-overlay">Tap to open</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section band" id="availability">
-        <div class="container">
-          <div class="split-head">
-            <div>
-              <div class="eyebrow">Availability</div>
-              <h2>Find your <span class="accent-text">date.</span></h2>
-            </div>
-            <p class="section-intro">
-              Check our upcoming availability before getting in touch. Dates can
-              change quickly, so send us a message to confirm your event.
-            </p>
-          </div>
-
-          <div class="availability-shell">
-            <div class="availability-toolbar">
-              <div>
-                <h3>Upcoming dates</h3>
-                <p>
-                  Available dates are highlighted, “Maybe” dates are tentative,
-                  and booked dates are muted.
-                </p>
-              </div>
-              <div class="availability-controls">
-                <button
-                  class="availability-nav"
-                  id="availabilityPrev"
-                  type="button"
-                  aria-label="Previous month"
-                >
-                  ‹
-                </button>
-                <button
-                  class="availability-nav"
-                  id="availabilityNext"
-                  type="button"
-                  aria-label="Next month"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-
-            <div class="availability-months" id="availabilityCalendars"></div>
-
-            <div class="availability-legend">
-              <span><i class="availability-dot"></i> Available</span>
-              <span
-                ><i class="availability-dot maybe"></i> Maybe / pending</span
-              >
-              <span
-                ><i class="availability-dot booked"></i> Booked /
-                unavailable</span
-              >
-            </div>
-
-            <div class="availability-manager" id="availabilityManager">
-              <strong>Manager mode</strong>
-              <p>
-                Click any future date to cycle: Available → Maybe → Booked.
-                Changes are saved automatically on this device.
-              </p>
-              <div class="availability-manager-actions">
-                <button
-                  class="availability-manager-button"
-                  id="copyAvailabilityData"
-                  type="button"
-                >
-                  Copy date data
-                </button>
-                <button
-                  class="availability-manager-button"
-                  id="resetAvailabilityData"
-                  type="button"
-                >
-                  Reset local changes
-                </button>
-              </div>
-              <div
-                class="availability-manager-toast"
-                id="availabilityManagerToast"
-                aria-live="polite"
-              ></div>
-            </div>
-
-            <div class="availability-cta">
-              <p>See a date that works for you?</p>
-              <a class="btn" href="#contact">Enquire about your event</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section
         class="section"
         id="contact"
@@ -895,7 +903,7 @@
       if (savedTheme === "light" || savedTheme === "dark") {
         applyTheme(savedTheme);
       } else {
-        applyTheme("light");
+        applyTheme("dark");
       }
 
       if (themeToggle) {
@@ -905,6 +913,42 @@
 
           applyTheme(nextTheme);
           localStorage.setItem(themeStorageKey, nextTheme);
+        });
+      }
+
+      // ---- Burger / mobile nav toggle ----
+      const burgerBtn = document.getElementById("burgerBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      function closeNav() {
+        mainNav.classList.remove("open");
+        burgerBtn.classList.remove("open");
+        burgerBtn.setAttribute("aria-expanded", "false");
+      }
+
+      if (burgerBtn && mainNav) {
+        burgerBtn.addEventListener("click", function () {
+          const isOpen = mainNav.classList.toggle("open");
+          burgerBtn.classList.toggle("open", isOpen);
+          burgerBtn.setAttribute("aria-expanded", isOpen);
+        });
+
+        mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", closeNav);
+        });
+
+        document.addEventListener("click", function (event) {
+          if (
+            mainNav.classList.contains("open") &&
+            !mainNav.contains(event.target) &&
+            !burgerBtn.contains(event.target)
+          ) {
+            closeNav();
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeNav();
         });
       }
 

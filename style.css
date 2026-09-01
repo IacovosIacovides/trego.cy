@@ -248,6 +248,47 @@ p {
   border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
 }
 
+/* ---- Burger menu button ---- */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-strong) 100%, transparent);
+  cursor: pointer;
+}
+
+.burger span {
+  display: block;
+  height: 2px;
+  width: 18px;
+  margin: 0 auto;
+  background: var(--text);
+  border-radius: 2px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.burger:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+.burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -264,14 +305,6 @@ p {
   transform: translate(-50%, -50%) rotate(-18deg);
   pointer-events: none;
   z-index: 0;
-
-  background-image: url("./assets/burgerIcon.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  opacity: 0.1;
-  filter: grayscale(1) blur(0.6px);
 }
 @media (min-width: 1200px) {
   .hero::before {
@@ -404,7 +437,7 @@ body[data-theme="dark"] .btn {
 .hero-panel {
   position: relative;
   min-height: 400px;
-  height: 500px;
+  height: max-content;
   border-radius: var(--radius-xl);
   padding: 24px;
   display: flex;
@@ -570,7 +603,7 @@ body[data-theme="dark"] .panel {
 }
 
 .section-intro {
-  max-width: 680px;
+  max-width: 580px;
   color: var(--muted);
   line-height: 1.9;
   font-size: 18px;
@@ -874,6 +907,7 @@ body[data-theme="dark"] .menu-preview-card {
 }
 
 #menu-section {
+  margin-top: -100px;
   position: relative;
   overflow: hidden;
 }
@@ -1080,8 +1114,50 @@ body[data-theme="dark"] .contact-link:hover {
     flex-wrap: wrap;
   }
 
+  .burger {
+    display: flex;
+  }
+
   .nav {
-    display: none;
+    position: fixed;
+    top: 72px;
+    left: 12px;
+    right: 12px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg-warm) 96%, transparent);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      max-height 0.3s ease,
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .nav.open {
+    max-height: 420px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav a {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+
+  .nav a:last-child {
+    border-bottom: none;
   }
 
   .header-actions {
@@ -1355,9 +1431,5 @@ body.modal-open {
 
   .menu-lightbox-next {
     right: 8px;
-  }
-
-  .nav {
-    display: none;
   }
 }
