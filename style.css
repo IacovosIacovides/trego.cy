@@ -1179,12 +1179,16 @@ body[data-theme="dark"] .contact-link:hover {
     height: 42px;
   }
 
-  .cards-4,
   .gallery-grid,
   .process-grid,
   .menu-preview-grid,
   .menu-modal-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cards-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .gallery-top {
