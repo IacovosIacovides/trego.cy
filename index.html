@@ -218,12 +218,13 @@
       }
 
       .calendar-day.available {
-        background: color-mix(in srgb, var(--accent) 14%, transparent);
-        border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+        background: rgba(192, 161, 83, 0.9);
+        border-color: rgba(255, 206, 84, 1);
+        color: #201a0d;
       }
 
       .calendar-day.maybe {
-        background: rgba(66, 51, 21, 0.459);
+        background: rgba(202, 90, 24, 0.459);
         border-color: rgba(141, 117, 69, 0.459);
       }
 
@@ -260,11 +261,13 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background: var(--accent);
+        background: #ffce54;
+        box-shadow: 0 0 0 2px rgba(255, 206, 84, 0.18);
       }
 
       .availability-dot.maybe {
-        background: rgba(66, 51, 21, 0.459);
+        background: rgba(202, 89, 24, 0.644);
+        box-shadow: 0 0 0 2px rgba(202, 90, 24, 0.18);
       }
 
       .availability-dot.booked {
