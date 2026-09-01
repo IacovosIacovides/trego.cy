@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,6 +15,345 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <style>
+      .publuu-menu-card {
+        margin-top: 38px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
+        gap: 44px;
+        align-items: center;
+        padding: 42px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface, rgba(255, 255, 255, 0.04));
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+      .publuu-menu-copy {
+        max-width: 620px;
+      }
+      .publuu-menu-kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+      }
+      .publuu-menu-copy h3 {
+        margin: 0 0 12px;
+        font-size: clamp(30px, 4vw, 52px);
+        line-height: 1;
+      }
+      .publuu-menu-copy p {
+        margin: 0 0 24px;
+        max-width: 560px;
+        opacity: 0.76;
+        line-height: 1.7;
+      }
+      .publuu-menu-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+      }
+      .publuu-menu-button span {
+        transition: transform 0.2s ease;
+      }
+      .publuu-menu-button:hover span {
+        transform: translateX(4px);
+      }
+      .publuu-cover {
+        position: relative;
+        display: block;
+        justify-self: end;
+        width: min(100%, 300px);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+        transform: rotate(1.5deg);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .publuu-cover:hover {
+        transform: rotate(0deg) translateY(-5px);
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+      }
+      .publuu-cover img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .publuu-cover-overlay {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        padding: 11px 14px;
+        border-radius: 999px;
+        background: rgba(10, 10, 10, 0.76);
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        backdrop-filter: blur(8px);
+      }
+      .menu-trigger {
+        text-decoration: none;
+      }
+      @media (max-width: 760px) {
+        .publuu-menu-card {
+          grid-template-columns: 1fr;
+          padding: 28px;
+          gap: 30px;
+        }
+        .publuu-cover {
+          justify-self: center;
+          width: min(82%, 280px);
+        }
+      }
+
+      .availability-shell {
+        margin-top: 38px;
+        padding: 34px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface, rgba(255, 255, 255, 0.04));
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.08);
+      }
+
+      .availability-toolbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+
+      .availability-toolbar h3 {
+        margin: 0 0 8px;
+        font-size: clamp(28px, 4vw, 44px);
+      }
+
+      .availability-toolbar p {
+        margin: 0;
+        max-width: 650px;
+        opacity: 0.72;
+        line-height: 1.65;
+      }
+
+      .availability-controls {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .availability-nav {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: transparent;
+        color: inherit;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .availability-months {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .availability-month {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .availability-month-title {
+        font-weight: 800;
+        margin-bottom: 16px;
+        letter-spacing: 0.02em;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .calendar-weekday {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 800;
+        opacity: 0.5;
+        padding: 5px 0;
+      }
+
+      .calendar-day {
+        min-height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        position: relative;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      body.availability-manage-mode .calendar-day:not(.past) {
+        cursor: pointer;
+      }
+
+      body.availability-manage-mode .calendar-day:not(.past):hover {
+        transform: translateY(-2px);
+      }
+
+      .calendar-day.available {
+        background: color-mix(in srgb, var(--accent) 14%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+      }
+
+      .calendar-day.maybe {
+        background: rgba(214, 154, 46, 0.14);
+        border-color: rgba(214, 154, 46, 0.48);
+      }
+
+      .calendar-day.booked {
+        opacity: 0.42;
+        text-decoration: line-through;
+      }
+
+      .calendar-day.past {
+        opacity: 0.22;
+      }
+
+      .calendar-day.today {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .availability-legend {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        font-size: 13px;
+        opacity: 0.78;
+      }
+
+      .availability-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .availability-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .availability-dot.maybe {
+        background: #d69a2e;
+      }
+
+      .availability-dot.booked {
+        background: currentColor;
+        opacity: 0.35;
+      }
+
+      .availability-manager {
+        display: none;
+        margin-top: 20px;
+        padding: 18px;
+        border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--accent) 5%, transparent);
+      }
+
+      body.availability-manage-mode .availability-manager {
+        display: block;
+      }
+
+      .availability-manager strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .availability-manager p {
+        margin: 0;
+        opacity: 0.72;
+        line-height: 1.55;
+        font-size: 13px;
+      }
+
+      .availability-manager-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .availability-manager-button {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .availability-manager-toast {
+        margin-top: 10px;
+        min-height: 1.4em;
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .availability-cta {
+        margin-top: 24px;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: center;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+
+      .availability-cta p {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      @media (max-width: 760px) {
+        .availability-shell {
+          padding: 24px;
+        }
+
+        .availability-toolbar,
+        .availability-cta {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .availability-months {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body data-theme="light">
     <header class="site-header">
@@ -39,14 +377,13 @@
             <span id="themeIcon" aria-hidden="true">☀</span>
           </button>
 
-          <button
+          <a
             class="menu-trigger"
-            id="menuButton"
-            type="button"
-            aria-label="Open menu gallery"
+            href="#menu-section"
+            aria-label="Go to food menu"
           >
-            <span class="accent-text" style="font-weight: bold"> Menu</span>
-          </button>
+            <span class="accent-text" style="font-weight: bold">Menu</span>
+          </a>
 
           <!-- <a
             class="pill-link"
@@ -62,6 +399,7 @@
           <a href="#process">Process</a>
           <a href="#gallery">Atmosphere</a>
           <a href="#menu-section">Food Menu</a>
+          <a href="#availability">Availability</a>
           <a href="#contact">Book</a>
         </nav>
       </div>
@@ -289,34 +627,125 @@
             </p>
           </div>
 
-          <div class="menu-stack-wrap">
-            <button
-              class="menu-stack"
-              id="openMenuGallery"
-              type="button"
-              aria-label="Open menu gallery"
+          <div class="publuu-menu-card">
+            <div class="publuu-menu-copy">
+              <span class="publuu-menu-kicker">THE FULL TREGO MENU</span>
+              <h3>Explore the feast.</h3>
+              <p>
+                Open our interactive menu and flip through every dish, side,
+                sauce and live-fire favourite.
+              </p>
+              <a
+                href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
+                class="btn publuu-menu-button show-publuu-viewer"
+              >
+                Show Menu <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <a
+              href="https://publuu.com/flip-book/1088396/2605678/page/1?cover"
+              class="publuu-cover show-publuu-viewer"
+              aria-label="Open Trego interactive menu"
             >
               <img
-                src="assets/4.png"
-                alt="Trego menu page 4"
-                class="menu-stack-card stack-card-4"
+                src="https://47gp61txie.execute-api.us-east-2.amazonaws.com/cover/1088396/2605678?icon=0&gradient=0"
+                alt="Trego interactive food menu cover"
               />
-              <img
-                src="assets/3.png"
-                alt="Trego menu page 3"
-                class="menu-stack-card stack-card-3"
-              />
-              <img
-                src="assets/2.png"
-                alt="Trego menu page 2"
-                class="menu-stack-card stack-card-2"
-              />
-              <img
-                src="assets/1.png"
-                alt="Trego menu page 1"
-                class="menu-stack-card stack-card-1"
-              />
-            </button>
+              <span class="publuu-cover-overlay">Tap to open</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band" id="availability">
+        <div class="container">
+          <div class="split-head">
+            <div>
+              <div class="eyebrow">Availability</div>
+              <h2>Find your <span class="accent-text">date.</span></h2>
+            </div>
+            <p class="section-intro">
+              Check our upcoming availability before getting in touch. Dates can
+              change quickly, so send us a message to confirm your event.
+            </p>
+          </div>
+
+          <div class="availability-shell">
+            <div class="availability-toolbar">
+              <div>
+                <h3>Upcoming dates</h3>
+                <p>
+                  Available dates are highlighted, “Maybe” dates are tentative,
+                  and booked dates are muted.
+                </p>
+              </div>
+              <div class="availability-controls">
+                <button
+                  class="availability-nav"
+                  id="availabilityPrev"
+                  type="button"
+                  aria-label="Previous month"
+                >
+                  ‹
+                </button>
+                <button
+                  class="availability-nav"
+                  id="availabilityNext"
+                  type="button"
+                  aria-label="Next month"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <div class="availability-months" id="availabilityCalendars"></div>
+
+            <div class="availability-legend">
+              <span><i class="availability-dot"></i> Available</span>
+              <span
+                ><i class="availability-dot maybe"></i> Maybe / pending</span
+              >
+              <span
+                ><i class="availability-dot booked"></i> Booked /
+                unavailable</span
+              >
+            </div>
+
+            <div class="availability-manager" id="availabilityManager">
+              <strong>Manager mode</strong>
+              <p>
+                Click any future date to cycle: Available → Maybe → Booked.
+                Changes are saved automatically on this device.
+              </p>
+              <div class="availability-manager-actions">
+                <button
+                  class="availability-manager-button"
+                  id="copyAvailabilityData"
+                  type="button"
+                >
+                  Copy date data
+                </button>
+                <button
+                  class="availability-manager-button"
+                  id="resetAvailabilityData"
+                  type="button"
+                >
+                  Reset local changes
+                </button>
+              </div>
+              <div
+                class="availability-manager-toast"
+                id="availabilityManagerToast"
+                aria-live="polite"
+              ></div>
+            </div>
+
+            <div class="availability-cta">
+              <p>See a date that works for you?</p>
+              <a class="btn" href="#contact">Enquire about your event</a>
+            </div>
           </div>
         </div>
       </section>
@@ -564,6 +993,245 @@
           }
         }
       });
+
+      // ---- TREGO AVAILABILITY ----
+      // Default statuses that ship with the website.
+      // You can still hard-code dates here if you want.
+      const defaultBookedDates = [
+        "2026-09-09",
+        "2026-09-10",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-09-24",
+        "2026-09-24",
+        "2026-09-19",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-11-10",
+        "2026-11-11",
+        "2026-12-02",
+        "2026-12-03",
+      ];
+
+      const defaultMaybeDates = [
+        "2026-09-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-28",
+        "2026-10-30",
+      ];
+
+      const availabilityStorageKey = "trego-availability-v2";
+      const availabilityCalendars = document.getElementById(
+        "availabilityCalendars",
+      );
+      const availabilityPrev = document.getElementById("availabilityPrev");
+      const availabilityNext = document.getElementById("availabilityNext");
+      const copyAvailabilityData = document.getElementById(
+        "copyAvailabilityData",
+      );
+      const resetAvailabilityData = document.getElementById(
+        "resetAvailabilityData",
+      );
+      const availabilityManagerToast = document.getElementById(
+        "availabilityManagerToast",
+      );
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let availabilityOffset = 0;
+
+      // Open the live site with ?manage=1 to enable editing.
+      const manageAvailability =
+        new URLSearchParams(window.location.search).get("manage") === "1";
+      if (manageAvailability)
+        document.body.classList.add("availability-manage-mode");
+
+      function loadAvailabilityData() {
+        const base = {};
+        defaultMaybeDates.forEach((date) => (base[date] = "maybe"));
+        defaultBookedDates.forEach((date) => (base[date] = "booked"));
+
+        try {
+          const stored = JSON.parse(
+            localStorage.getItem(availabilityStorageKey) || "{}",
+          );
+          return { ...base, ...stored };
+        } catch (error) {
+          return base;
+        }
+      }
+
+      let availabilityData = loadAvailabilityData();
+
+      function saveAvailabilityData() {
+        localStorage.setItem(
+          availabilityStorageKey,
+          JSON.stringify(availabilityData),
+        );
+      }
+
+      function dateKey(year, month, day) {
+        return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      }
+
+      function getDateStatus(key) {
+        return availabilityData[key] || "available";
+      }
+
+      function setDateStatus(key, status) {
+        if (status === "available") {
+          delete availabilityData[key];
+        } else {
+          availabilityData[key] = status;
+        }
+        saveAvailabilityData();
+      }
+
+      function nextDateStatus(status) {
+        if (status === "available") return "maybe";
+        if (status === "maybe") return "booked";
+        return "available";
+      }
+
+      function flashManagerMessage(message) {
+        if (!availabilityManagerToast) return;
+        availabilityManagerToast.textContent = message;
+        window.clearTimeout(flashManagerMessage.timer);
+        flashManagerMessage.timer = window.setTimeout(() => {
+          availabilityManagerToast.textContent = "";
+        }, 2200);
+      }
+
+      function renderAvailabilityMonth(year, month) {
+        const monthEl = document.createElement("div");
+        monthEl.className = "availability-month";
+
+        const title = document.createElement("div");
+        title.className = "availability-month-title";
+        title.textContent = new Intl.DateTimeFormat("en", {
+          month: "long",
+          year: "numeric",
+        }).format(new Date(year, month, 1));
+        monthEl.appendChild(title);
+
+        const grid = document.createElement("div");
+        grid.className = "calendar-grid";
+        ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach((label) => {
+          const weekday = document.createElement("div");
+          weekday.className = "calendar-weekday";
+          weekday.textContent = label;
+          grid.appendChild(weekday);
+        });
+
+        const firstDay = new Date(year, month, 1);
+        const leading = (firstDay.getDay() + 6) % 7;
+        for (let i = 0; i < leading; i++)
+          grid.appendChild(document.createElement("div"));
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        for (let day = 1; day <= daysInMonth; day++) {
+          const date = new Date(year, month, day);
+          date.setHours(0, 0, 0, 0);
+          const key = dateKey(year, month, day);
+          const cell = document.createElement("div");
+          cell.className = "calendar-day";
+          cell.textContent = day;
+
+          if (date < today) {
+            cell.classList.add("past");
+            cell.title = "Past date";
+          } else {
+            const status = getDateStatus(key);
+            cell.classList.add(status);
+            cell.dataset.date = key;
+            cell.dataset.status = status;
+            cell.title = manageAvailability
+              ? `${key}: ${status}. Click to change.`
+              : `${key}: ${status}`;
+
+            if (manageAvailability) {
+              cell.setAttribute("role", "button");
+              cell.setAttribute("tabindex", "0");
+              const changeStatus = () => {
+                const current = getDateStatus(key);
+                const next = nextDateStatus(current);
+                setDateStatus(key, next);
+                flashManagerMessage(`${key} changed to ${next}.`);
+                renderAvailability();
+              };
+              cell.addEventListener("click", changeStatus);
+              cell.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  changeStatus();
+                }
+              });
+            }
+          }
+
+          if (date.getTime() === today.getTime()) cell.classList.add("today");
+          grid.appendChild(cell);
+        }
+
+        monthEl.appendChild(grid);
+        return monthEl;
+      }
+
+      function renderAvailability() {
+        if (!availabilityCalendars) return;
+        availabilityCalendars.innerHTML = "";
+        for (let i = 0; i < 2; i++) {
+          const date = new Date(
+            today.getFullYear(),
+            today.getMonth() + availabilityOffset + i,
+            1,
+          );
+          availabilityCalendars.appendChild(
+            renderAvailabilityMonth(date.getFullYear(), date.getMonth()),
+          );
+        }
+        if (availabilityPrev)
+          availabilityPrev.disabled = availabilityOffset === 0;
+      }
+
+      if (availabilityPrev) {
+        availabilityPrev.addEventListener("click", function () {
+          availabilityOffset = Math.max(0, availabilityOffset - 1);
+          renderAvailability();
+        });
+      }
+
+      if (availabilityNext) {
+        availabilityNext.addEventListener("click", function () {
+          availabilityOffset += 1;
+          renderAvailability();
+        });
+      }
+
+      if (copyAvailabilityData) {
+        copyAvailabilityData.addEventListener("click", async function () {
+          const text = JSON.stringify(availabilityData, null, 2);
+          try {
+            await navigator.clipboard.writeText(text);
+            flashManagerMessage("Date data copied.");
+          } catch (error) {
+            window.prompt("Copy your availability data:", text);
+          }
+        });
+      }
+
+      if (resetAvailabilityData) {
+        resetAvailabilityData.addEventListener("click", function () {
+          localStorage.removeItem(availabilityStorageKey);
+          availabilityData = loadAvailabilityData();
+          renderAvailability();
+          flashManagerMessage("Local changes reset.");
+        });
+      }
+
+      renderAvailability();
     </script>
+    <script src="https://publuu.com/account/js/embed-viewer.js"></script>
   </body>
 </html>
