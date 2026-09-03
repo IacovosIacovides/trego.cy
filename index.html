@@ -545,7 +545,11 @@
                 </button>
               </div>
             </div>
-
+            <div class="availability-cta">
+              <p>See a date that works for you?</p>
+              <a class="btn" href="#contact">For Booking DM</a>
+            </div>
+            <br />
             <div class="availability-months" id="availabilityCalendars"></div>
 
             <div class="availability-legend">
@@ -588,10 +592,10 @@
               ></div>
             </div>
 
-            <div class="availability-cta">
+            <!-- <div class="availability-cta">
               <p>See a date that works for you?</p>
               <a class="btn" href="#contact">Enquire about your event</a>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
@@ -862,6 +866,30 @@
       </div>
     </div>
 
+    <div class="event-lightbox" id="eventLightbox" aria-hidden="true">
+      <div class="event-lightbox-backdrop" id="eventLightboxBackdrop"></div>
+      <div
+        class="event-lightbox-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="eventLightboxTitle"
+      >
+        <button
+          class="event-lightbox-close"
+          id="eventLightboxClose"
+          type="button"
+          aria-label="Close event details"
+        >
+          ✕
+        </button>
+
+        <div class="event-lightbox-date" id="eventLightboxDate"></div>
+        <h3 id="eventLightboxTitle">Booked event</h3>
+        <div class="event-lightbox-event" id="eventLightboxEvent"></div>
+        <p class="event-lightbox-note" id="eventLightboxNote"></p>
+      </div>
+    </div>
+
     <script>
       const body = document.body;
 
@@ -1043,22 +1071,26 @@
       // ---- TREGO AVAILABILITY ----
       // Default statuses that ship with the website.
       // You can still hard-code dates here if you want.
-      const defaultBookedDates = [
-        "2026-09-09",
-        "2026-09-10",
-        "2026-09-11",
-        "2026-09-29",
-        "2026-09-30",
-        "2026-09-24",
-        "2026-09-24",
-        "2026-09-19",
-        "2026-10-10",
-        "2026-10-11",
-        "2026-11-10",
-        "2026-11-11",
-        "2026-12-02",
-        "2026-12-03",
-      ];
+      // Booked dates + the event shown when visitors click them.
+      // Use ONLY these three values:
+      // "Private Event"
+      // "Pop up at Lost and Found"
+      // "Pop up at Tzins Bar Limassol"
+      const defaultBookedDates = {
+        "2026-09-09": "Pop up at Lost and Found",
+        "2026-09-10": "Pop up at Lost and Found",
+        "2026-09-11": "Private Event",
+        "2026-09-19": "Private Event",
+        "2026-09-24": "Private Event",
+        "2026-09-29": "Pop up at Lost and Found",
+        "2026-09-30": "Pop up at Lost and Found",
+        "2026-10-10": "Pop up at Power-lifting Competition",
+        "2026-10-11": "Pop up at Power-lifting Competition",
+        "2026-11-10": "Pop up at Lost and Found",
+        "2026-11-11": "Pop up at Lost and Found",
+        "2026-12-02": "Pop up at Lost and Found",
+        "2026-12-03": "Pop up at Lost and Found",
+      };
 
       const defaultMaybeDates = [
         "2026-09-12",
@@ -1084,6 +1116,16 @@
         "availabilityManagerToast",
       );
 
+      const eventLightbox = document.getElementById("eventLightbox");
+      const eventLightboxBackdrop = document.getElementById(
+        "eventLightboxBackdrop",
+      );
+      const eventLightboxClose = document.getElementById("eventLightboxClose");
+      const eventLightboxDate = document.getElementById("eventLightboxDate");
+      const eventLightboxTitle = document.getElementById("eventLightboxTitle");
+      const eventLightboxEvent = document.getElementById("eventLightboxEvent");
+      const eventLightboxNote = document.getElementById("eventLightboxNote");
+
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       let availabilityOffset = 0;
@@ -1097,7 +1139,9 @@
       function loadAvailabilityData() {
         const base = {};
         defaultMaybeDates.forEach((date) => (base[date] = "maybe"));
-        defaultBookedDates.forEach((date) => (base[date] = "booked"));
+        Object.keys(defaultBookedDates).forEach(
+          (date) => (base[date] = "booked"),
+        );
 
         try {
           const stored = JSON.parse(
@@ -1149,6 +1193,56 @@
           availabilityManagerToast.textContent = "";
         }, 2200);
       }
+
+      function getBookedEvent(key) {
+        return defaultBookedDates[key] || "Private Event";
+      }
+
+      function formatEventDate(key) {
+        const [year, month, day] = key.split("-").map(Number);
+        return new Intl.DateTimeFormat("en", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }).format(new Date(year, month - 1, day));
+      }
+
+      function openEventLightbox(key) {
+        if (!eventLightbox) return;
+        const event = getBookedEvent(key);
+        eventLightboxDate.textContent = formatEventDate(key);
+        eventLightboxTitle.textContent = event;
+        eventLightboxEvent.textContent = "BOOKED";
+        eventLightboxNote.textContent = "TREGO is booked for this date.";
+        eventLightbox.classList.add("open");
+        eventLightbox.setAttribute("aria-hidden", "false");
+        body.classList.add("modal-open");
+      }
+
+      function closeEventLightbox() {
+        if (!eventLightbox) return;
+        eventLightbox.classList.remove("open");
+        eventLightbox.setAttribute("aria-hidden", "true");
+        body.classList.remove("modal-open");
+      }
+
+      if (eventLightboxClose) {
+        eventLightboxClose.addEventListener("click", closeEventLightbox);
+      }
+
+      if (eventLightboxBackdrop) {
+        eventLightboxBackdrop.addEventListener("click", closeEventLightbox);
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (
+          event.key === "Escape" &&
+          eventLightbox?.classList.contains("open")
+        ) {
+          closeEventLightbox();
+        }
+      });
 
       function renderAvailabilityMonth(year, month) {
         const monthEl = document.createElement("div");
@@ -1212,6 +1306,24 @@
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
                   changeStatus();
+                }
+              });
+            } else if (status === "booked") {
+              cell.classList.add("booked-clickable");
+              cell.setAttribute("role", "button");
+              cell.setAttribute("tabindex", "0");
+              cell.setAttribute(
+                "aria-label",
+                `${formatEventDate(key)} — ${getBookedEvent(key)}`,
+              );
+              cell.title = `${getBookedEvent(key)} — click for details`;
+
+              const showEvent = () => openEventLightbox(key);
+              cell.addEventListener("click", showEvent);
+              cell.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  showEvent();
                 }
               });
             }

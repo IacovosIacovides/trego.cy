@@ -1433,3 +1433,152 @@ body.modal-open {
     right: 8px;
   }
 }
+
+/* ---- Availability booked-event popup ---- */
+.calendar-day.booked-clickable {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.calendar-day.booked-clickable::after {
+  content: "•";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent);
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.95;
+}
+
+.calendar-day.booked-clickable:hover {
+  opacity: 0.82;
+  transform: translateY(-2px) scale(1.03);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.event-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.22s ease,
+    visibility 0.22s ease;
+}
+
+.event-lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.event-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.event-lightbox-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 480px);
+  padding: 38px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+  border-radius: 30px;
+  background: color-mix(in srgb, var(--bg-warm) 94%, transparent);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.24s ease;
+}
+
+.event-lightbox.open .event-lightbox-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.event-lightbox-dialog::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -80px;
+  top: -90px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.event-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--panel-strong) 100%, transparent);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.event-lightbox-kicker {
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.26em;
+}
+
+.event-lightbox-date {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.event-lightbox-dialog h3 {
+  max-width: 360px;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(28px, 6vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.event-lightbox-event {
+  display: inline-flex;
+  margin-top: 24px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.event-lightbox-note {
+  margin: 18px 0 0;
+  max-width: 380px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+@media (max-width: 560px) {
+  .event-lightbox-dialog {
+    padding: 32px 24px 26px;
+    border-radius: 24px;
+  }
+}
