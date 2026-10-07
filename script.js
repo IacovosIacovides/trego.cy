@@ -577,7 +577,7 @@ function parseReviewsCsv(text) {
 // Swipe and snapping are plain CSS; this only drives the auto-advance.
 const reviewCards = document.getElementById("reviewCards");
 const reviewsSection = document.getElementById("testimonials");
-const reviewsAutoAdvanceMs = 5000;
+const reviewsAutoAdvanceMs = 3500;
 
 function moveReviews(direction) {
   const card = reviewCards.firstElementChild;
