@@ -172,32 +172,42 @@ document.addEventListener("keydown", function (event) {
     }
   }
 });
-const defaultBookedDates = {
-  "2026-09-09": "Pop up at Lost + Found Drinkery",
-  "2026-09-10": "Pop up at Lost + Found Drinkery",
-  "2026-09-11": "Private Event",
-  "2026-09-19": "Private Event",
-  "2026-09-24": "Private Event",
-  "2026-09-29": "Pop up at Lost + Found Drinkery",
-  "2026-09-30": "Pop up at Lost + Found Drinkery",
-  "2026-10-10": "Cooking at National CPF",
-  "2026-10-11": "Cooking at National CPF",
-  "2026-11-10": "Pop up at Lost + Found Drinkery",
-  "2026-11-11": "Pop up at Lost + Found Drinkery",
-  "2026-12-02": "Pop up at Lost + Found Drinkery",
-  "2026-12-03": "Pop up at Lost + Found Drinkery",
-  "2026-10-16": "Private Event",
-  "2026-10-17": "Private Event",
-  "2026-10-25": "Private Event",
-};
+const defaultBookedDates = {};
 
-const defaultMaybeDates = [
-  "2026-09-12",
-  "2026-10-13",
-  "2026-10-14",
-  "2026-10-28",
-  "2026-10-30",
-];
+const defaultMaybeDates = [];
+
+// Live dates: a Google Sheet published as CSV (File > Share > Publish to web > CSV).
+// Row 1 is the header: date | status | event
+//   date   YYYY-MM-DD (format the column as Plain text so Sheets keeps it that way)
+//   status "booked" or "maybe" (blank counts as booked)
+//   event  optional name shown when a booked date is tapped
+// When set, the sheet replaces the two lists above; they remain the fallback
+// if the sheet cannot be loaded. Leave empty to use only the lists above.
+const availabilitySheetUrl =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMh3WCIUiFH7Fbtiwt1qmIBFJP0S4GuALQCT5_afriOoAxen7NR3sGbN8NZuiw5KDnDD1yvgXU9Mvj/pub?gid=0&single=true&output=csv";
+
+function parseAvailabilityCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  // Anything without our header is not the sheet (e.g. a Google sign-in page).
+  if (!/^"?date/i.test(lines[0])) return null;
+  const booked = {};
+  const maybe = [];
+  const skipped = [];
+  lines.slice(1).forEach((line) => {
+    if (!line.replace(/[",\s]/g, "")) return;
+    const [date, status = "", ...rest] = line.split(",");
+    const key = date.replace(/"/g, "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return skipped.push(line);
+    const event = rest
+      .join(",")
+      .trim()
+      .replace(/^"|"$/g, "")
+      .replace(/""/g, '"');
+    if (/^\s*"?m/i.test(status)) maybe.push(key);
+    else booked[key] = event || "Private Event";
+  });
+  return { booked, maybe, skipped };
+}
 
 const availabilityStorageKey = "trego-availability-v2";
 const availabilityCalendars = document.getElementById("availabilityCalendars");
@@ -230,6 +240,9 @@ function loadAvailabilityData() {
   const base = {};
   defaultMaybeDates.forEach((date) => (base[date] = "maybe"));
   Object.keys(defaultBookedDates).forEach((date) => (base[date] = "booked"));
+
+  // Device-only edits apply in manager mode only, so they never hide the real dates.
+  if (!manageAvailability) return base;
 
   try {
     const stored = JSON.parse(
@@ -475,3 +488,33 @@ if (resetAvailabilityData) {
 }
 
 renderAvailability();
+
+if (availabilitySheetUrl) {
+  fetch(availabilitySheetUrl)
+    .then((response) =>
+      response.ok ? response.text() : Promise.reject(response.status),
+    )
+    .then((text) => {
+      const sheet = parseAvailabilityCsv(text);
+      if (!sheet) throw new Error("response is not the availability sheet");
+      Object.keys(defaultBookedDates).forEach(
+        (key) => delete defaultBookedDates[key],
+      );
+      Object.assign(defaultBookedDates, sheet.booked);
+      defaultMaybeDates.splice(0, Infinity, ...sheet.maybe);
+      availabilityData = loadAvailabilityData();
+      renderAvailability();
+      if (sheet.skipped.length) {
+        console.warn("Availability sheet rows ignored:", sheet.skipped);
+        flashManagerMessage(
+          `${sheet.skipped.length} sheet row(s) ignored: dates must be YYYY-MM-DD.`,
+        );
+      }
+    })
+    .catch((error) =>
+      console.warn(
+        "Availability sheet unavailable, using built-in dates.",
+        error,
+      ),
+    );
+}
