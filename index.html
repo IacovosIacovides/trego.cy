@@ -64,7 +64,7 @@
           <a href="#experience">Experience</a>
           <!-- <a href="#process">Process</a> -->
           <a href="#gallery">Atmosphere</a>
-          <a href="#testimonials">Testimonials</a>
+          <a href="#testimonials" hidden>Testimonials</a>
           <a href="#contact">Book</a>
         </nav>
       </div>
@@ -393,8 +393,9 @@
         </div>
       </section>
 
-      <!-- Testimonials: QUOTE / NAME below are placeholders. Replace with real guest quotes before publishing. -->
-      <section class="section band" id="testimonials">
+      <!-- Testimonials: filled from the reviews sheet (reviewsSheetUrl in script.js).
+           The section and its nav link stay hidden until at least one review loads. -->
+      <section class="section band" id="testimonials" hidden>
         <div class="container">
           <div class="split-head">
             <div>
@@ -403,24 +404,13 @@
             </div>
           </div>
 
-          <div class="cards-4">
-            <article class="service-card">
-              <p>&ldquo;QUOTE&rdquo;</p>
-              <h3>NAME</h3>
-            </article>
-            <article class="service-card">
-              <p>&ldquo;QUOTE&rdquo;</p>
-              <h3>NAME</h3>
-            </article>
-            <article class="service-card">
-              <p>&ldquo;QUOTE&rdquo;</p>
-              <h3>NAME</h3>
-            </article>
-            <article class="service-card">
-              <p>&ldquo;QUOTE&rdquo;</p>
-              <h3>NAME</h3>
-            </article>
-          </div>
+          <div
+            class="cards-4"
+            id="reviewCards"
+            role="region"
+            aria-label="Guest reviews"
+            tabindex="0"
+          ></div>
         </div>
       </section>
 
@@ -542,7 +532,7 @@
           class="event-lightbox-close"
           id="eventLightboxClose"
           type="button"
-          aria-label="Close event details"
+          aria-label="Close"
         >
           ✕
         </button>

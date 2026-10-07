@@ -615,6 +615,73 @@ body[data-theme="dark"] .panel {
   gap: 24px;
 }
 
+/* Reviews carousel: the same cards in one swipeable row, two per view (one on phones). */
+#reviewCards {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 24px) / 2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-top: 4px; /* room for the card hover lift */
+}
+
+#reviewCards::-webkit-scrollbar {
+  display: none; /* older Safari ignores scrollbar-width */
+}
+
+#reviewCards .service-card {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* The name sits at the bottom left of every card, whatever the quote length. */
+#reviewCards h3 {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 20px;
+}
+
+/* Quotes are cut with an ellipsis after 4 lines to keep the cards short; the
+   "See more" button (shown by script.js only when a quote is cut) opens the rest. */
+#reviewCards p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+#reviewCards button {
+  margin-top: 6px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#reviewCards button:hover {
+  text-decoration: underline;
+}
+
+/* The booking section below pulls itself up 100px, which suits the gallery but
+   drew its top line through these cards. Cancel that while this section shows. */
+#testimonials {
+  margin-bottom: 100px;
+  border-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  #reviewCards {
+    grid-auto-columns: 88%; /* the next card peeks in, so it reads as swipeable */
+  }
+}
+
 .service-card {
   border-radius: 28px;
   padding: 28px;
@@ -1489,8 +1556,9 @@ body.modal-open {
   position: relative;
   z-index: 1;
   width: min(100%, 480px);
+  max-height: 100%; /* a long review scrolls inside the pop-up instead of running off screen */
   padding: 38px;
-  overflow: hidden;
+  overflow: hidden auto;
   border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
   border-radius: 30px;
   background: color-mix(in srgb, var(--bg-warm) 94%, transparent);

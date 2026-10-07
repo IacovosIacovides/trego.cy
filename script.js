@@ -310,12 +310,21 @@ function formatEventDate(key) {
 }
 
 function openEventLightbox(key) {
+  showLightbox(
+    formatEventDate(key),
+    getBookedEvent(key),
+    "BOOKED",
+    "trego is booked for this date.",
+  );
+}
+
+// One pop-up for booked dates and for full-length reviews.
+function showLightbox(kicker, title, tag, note) {
   if (!eventLightbox) return;
-  const event = getBookedEvent(key);
-  eventLightboxDate.textContent = formatEventDate(key);
-  eventLightboxTitle.textContent = event;
-  eventLightboxEvent.textContent = "BOOKED";
-  eventLightboxNote.textContent = "trego is booked for this date.";
+  eventLightboxDate.textContent = kicker;
+  eventLightboxTitle.textContent = title;
+  eventLightboxEvent.textContent = tag;
+  eventLightboxNote.textContent = note;
   eventLightbox.classList.add("open");
   eventLightbox.setAttribute("aria-hidden", "false");
   body.classList.add("modal-open");
@@ -517,4 +526,141 @@ if (availabilitySheetUrl) {
         error,
       ),
     );
+}
+
+// Testimonials: a second tab of the same Google Sheet, published as CSV the same way
+// (File > Share > Publish to web > pick the reviews tab > CSV).
+// Row 1 is the header: show | name | stars | review
+//   show   tick the checkbox (or type yes) on the reviews you want on the site
+//   name   the guest name to display
+//   stars  1 to 5, as given on Google (blank shows no stars)
+//   review the review text, pasted as-is
+// Only ticked rows appear, in sheet order. While this is empty, or if the sheet
+// cannot be loaded, the Testimonials section and its nav link stay hidden.
+const reviewsSheetUrl =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMh3WCIUiFH7Fbtiwt1qmIBFJP0S4GuALQCT5_afriOoAxen7NR3sGbN8NZuiw5KDnDD1yvgXU9Mvj/pub?gid=82909702&single=true&output=csv";
+
+function parseReviewsCsv(text) {
+  // Reviews contain commas, quotes and line breaks, so this reads quoted fields properly.
+  const rows = [[""]];
+  let quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const row = rows[rows.length - 1];
+    const last = row.length - 1;
+    if (quoted) {
+      if (char === '"' && text[i + 1] === '"') row[last] += text[i++];
+      else if (char === '"') quoted = false;
+      else row[last] += char;
+    } else if (char === '"') quoted = true;
+    else if (char === ",") row.push("");
+    else if (char === "\n") rows.push([""]);
+    else if (char !== "\r") row[last] += char;
+  }
+  // Anything without our header is not the sheet (e.g. a Google sign-in page).
+  if (!/^show$/i.test(rows[0][0].trim())) return null;
+  return rows
+    .slice(1)
+    .filter(
+      ([show, , , review = ""]) =>
+        /^(true|y|x|1)/i.test(show.trim()) && review.trim(),
+    )
+    .map(([, name, stars, review]) => ({
+      name: name.trim(),
+      // Whole stars only; anything that is not 1 to 5 shows no stars.
+      stars: /^\s*[1-5]\s*$/.test(stars) ? Number(stars) : 0,
+      review: review.trim(),
+    }));
+}
+
+// Reviews carousel: moves one card at a time and wraps round at either end.
+// Swipe and snapping are plain CSS; this only drives the auto-advance.
+const reviewCards = document.getElementById("reviewCards");
+const reviewsSection = document.getElementById("testimonials");
+const reviewsAutoAdvanceMs = 5000;
+
+function moveReviews(direction) {
+  const card = reviewCards.firstElementChild;
+  if (!card) return;
+  const end = reviewCards.scrollWidth - reviewCards.clientWidth;
+  const step = card.offsetWidth + parseFloat(getComputedStyle(reviewCards).columnGap);
+  let left = reviewCards.scrollLeft + direction * step;
+  if (left > end + 4) left = 0;
+  if (left < -4) left = end;
+  reviewCards.scrollTo({ left, behavior: "smooth" });
+}
+
+// Auto-advance, paused while a guest is hovering, touching or tabbing through the
+// reviews, and switched off for visitors who ask their device for reduced motion.
+let reviewsPaused = false;
+["pointerenter", "focusin"].forEach((type) =>
+  reviewsSection.addEventListener(type, () => (reviewsPaused = true)),
+);
+["pointerleave", "focusout"].forEach((type) =>
+  reviewsSection.addEventListener(type, () => (reviewsPaused = false)),
+);
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  setInterval(() => {
+    if (reviewsPaused || document.hidden) return;
+    if (body.classList.contains("modal-open")) return;
+    moveReviews(1);
+  }, reviewsAutoAdvanceMs);
+}
+
+// "See more" only shows on cards whose quote is cut off at the current screen width.
+function markLongReviews() {
+  reviewCards.querySelectorAll(".service-card").forEach((card) => {
+    const quote = card.querySelector("p");
+    card.querySelector("button").hidden =
+      quote.scrollHeight <= quote.clientHeight + 1;
+  });
+}
+
+if (reviewsSheetUrl) {
+  fetch(reviewsSheetUrl)
+    .then((response) =>
+      response.ok ? response.text() : Promise.reject(response.status),
+    )
+    .then((text) => {
+      const reviews = parseReviewsCsv(text);
+      if (!reviews) throw new Error("response is not the reviews sheet");
+      if (!reviews.length) return;
+      document.getElementById("reviewCards").replaceChildren(
+        ...reviews.map(({ name, stars, review }) => {
+          const card = document.createElement("article");
+          card.className = "service-card";
+          if (stars) {
+            const rating = card.appendChild(document.createElement("div"));
+            rating.className = "accent-text";
+            rating.setAttribute("role", "img");
+            rating.setAttribute("aria-label", `${stars} out of 5 stars`);
+            rating.textContent = "★".repeat(stars) + "☆".repeat(5 - stars);
+          }
+          // textContent, never innerHTML: sheet text is shown as text only.
+          card.appendChild(document.createElement("p")).textContent =
+            `“${review}”`;
+          const more = card.appendChild(document.createElement("button"));
+          more.type = "button";
+          more.className = "accent-text";
+          more.textContent = "See more";
+          more.setAttribute("aria-label", `See ${name}'s full review`);
+          more.addEventListener("click", () =>
+            showLightbox(
+              "★".repeat(stars) + "☆".repeat(stars && 5 - stars),
+              name,
+              "GOOGLE REVIEW",
+              `“${review}”`,
+            ),
+          );
+          card.appendChild(document.createElement("h3")).textContent = name;
+          return card;
+        }),
+      );
+      document
+        .querySelectorAll('#testimonials, a[href="#testimonials"]')
+        .forEach((element) => (element.hidden = false));
+      markLongReviews();
+      window.addEventListener("resize", markLongReviews);
+    })
+    .catch((error) => console.warn("Reviews sheet unavailable.", error));
 }
